@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieCharactersEFCodeFirst.Data;
 
@@ -11,9 +12,11 @@ using MovieCharactersEFCodeFirst.Data;
 namespace MovieCharactersEFCodeFirst.Migrations
 {
     [DbContext(typeof(MovieManagerDbContext))]
-    partial class MovieManagerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220923094533_AddTypeRestrictions")]
+    partial class AddTypeRestrictions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,8 +62,8 @@ namespace MovieCharactersEFCodeFirst.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Genre")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Picture")
                         .HasMaxLength(100)
