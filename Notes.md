@@ -11,7 +11,7 @@
 6. Add migration: 
    * NuGet Package Manager Console -> "add-migration InitialDB"
    OR
-   * Dotnet CLI -> "dotnet ef migrations add InitialDB"
+   * Dotnet CLI -> "dotnet ef migrations add AddInitialDB"
 7. If new models have been created or new parameters are added to existing ones, 
     run command from 6th again but change the database name, e.g. add-migration AddedMovieCharactersTable
 8. Run migration:

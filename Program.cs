@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Tokens;
 using MovieCharactersEFCodeFirst.Data;
@@ -11,9 +12,10 @@ namespace MovieCharactersEFCodeFirst
     {
         static void Main(string[] args)
         {
+            // CreateHostBuilder(args).Build().Run();
+
             Movie movieObj1 = new Movie()
             {
-                // Id = 1,
                 Title = "King Kong",
                 Director = "Peter Jackson",
                 ReleaseYear = 2005,
@@ -24,14 +26,13 @@ namespace MovieCharactersEFCodeFirst
             
             Movie movieObj2 = new Movie()
             {
-                // Id = 1,
                 Title = "Godzilla vs. Kong",
                 Director = "Adam Wingard",
                 ReleaseYear = 2021,
                 Genre = "Action",
                 Picture = "https://upload.wikimedia.org/wikipedia/en/thumb/6/63/Godzilla_vs._Kong.png/220px-Godzilla_vs._Kong.png"
             };
-
+            
             Character characterObj1 = new Character()
             {
                 FullName = "King Kong",
@@ -46,13 +47,13 @@ namespace MovieCharactersEFCodeFirst
                 Gender = "Female",
                 Picture = "https://www.commonsensemedia.org/sites/default/files/styles/ratio_16_9_small/public/screenshots/csm-movie/king-kong-2005-ss3.jpg"
             };
-
+            
             Franchise franchiseObj = new Franchise()
             {
                 Name = "King Kong Franchise",
                 Description = "All movies with King Kong as the main antagonist."
             };
-
+            
             using (MovieManagerDbContext context = new MovieManagerDbContext())
             {
                 context.Franchise.Add(franchiseObj);
@@ -63,5 +64,12 @@ namespace MovieCharactersEFCodeFirst
                 context.SaveChanges();
             }
         }
+        
+        // public static IHostBuilder CreateHostBuilder(string[] args) =>
+        //     Host.CreateDefaultBuilder(args)
+        //         .ConfigureWebHostDefaults(webBuilder =>
+        //         {
+        //             webBuilder.UseStartup<Startup>();
+        //         });
     }
 }

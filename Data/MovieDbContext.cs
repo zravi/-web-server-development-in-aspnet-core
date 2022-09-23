@@ -3,6 +3,9 @@ using Microsoft.IdentityModel.Protocols;
 using MovieCharactersEFCodeFirst.Models;
 using System.Configuration;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using ConfigurationManager = System.Configuration.ConfigurationManager;
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.Extensions.Configuration;
 
 namespace MovieCharactersEFCodeFirst.Data
 {
@@ -12,21 +15,31 @@ namespace MovieCharactersEFCodeFirst.Data
         public DbSet<Character> Character { get; set; }
         public DbSet<Franchise> Franchise { get; set; }
 
+        // public MovieManagerDbContext([NotNullAttribute] DbContextOptions options) : base(options)
+        // {
+        //
+        // }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("appsettings.json")
+                .Build();
+            
             optionsBuilder.UseSqlServer(
-                @$"{connectionString}"
-            );
+                configuration.GetConnectionString("DefaultConnection")
+                );
         }
-
+        
         // protected override void OnModelCreating(ModelBuilder modelBuilder)
         // {
+        //     Console.WriteLine("OnModelCreating");
         //     // Add seed data here
         //     //modelBuilder.Entity<Coach>().HasData(new Coach() { Id = 1, Name = "John McIntyre", DOB = DateTime.Now.AddYears(-40), Gender = "Male", Awards = 10 });
         //     modelBuilder.Entity<Movie>().HasData(new Movie()
         //     {
-        //         Id = 1,
+        //         // Id = 1,
         //         Title = "King Kong",
         //         Director = "Peter Jackson",
         //         ReleaseYear = 2005,
@@ -37,7 +50,7 @@ namespace MovieCharactersEFCodeFirst.Data
         //
         //     modelBuilder.Entity<Character>().HasData(new Character()
         //     {
-        //         Id = 1,
+        //         // Id = 1,
         //         FullName = "King Kong",
         //         Alias = "The 8th Wonder of the World",
         //         Gender = "Male",
@@ -46,7 +59,7 @@ namespace MovieCharactersEFCodeFirst.Data
         //
         //     modelBuilder.Entity<Franchise>().HasData(new Franchise()
         //     {
-        //         Id = 1,
+        //         // Id = 1,
         //         Name = "King Kong Franchise",
         //         Description = "Movies with King Kong as the main villain."
         //     });

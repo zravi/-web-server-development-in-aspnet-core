@@ -18,7 +18,7 @@ namespace MovieCharactersEFCodeFirst.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
                     Age = table.Column<int>(type: "int", nullable: true),
-                    Alias = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
+                    Alias = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: true),
                     Gender = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
                     Picture = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true)
                 },
@@ -47,10 +47,10 @@ namespace MovieCharactersEFCodeFirst.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
                     Genre = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
-                    ReleaseYear = table.Column<int>(type: "int", maxLength: 4, nullable: false),
-                    Director = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    ReleaseYear = table.Column<int>(type: "int", nullable: true),
+                    Director = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: true),
                     Picture = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
                     Trailer = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
                     FranchiseId = table.Column<int>(type: "int", nullable: true)

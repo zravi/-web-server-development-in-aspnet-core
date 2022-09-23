@@ -12,7 +12,7 @@ using MovieCharactersEFCodeFirst.Data;
 namespace MovieCharactersEFCodeFirst.Migrations
 {
     [DbContext(typeof(MovieManagerDbContext))]
-    [Migration("20220923115408_AddInitialDB")]
+    [Migration("20220923140810_AddInitialDB")]
     partial class AddInitialDB
     {
         /// <inheritdoc />
@@ -52,8 +52,8 @@ namespace MovieCharactersEFCodeFirst.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Alias")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
 
                     b.Property<string>("FullName")
                         .IsRequired()
@@ -104,8 +104,8 @@ namespace MovieCharactersEFCodeFirst.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Director")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
 
                     b.Property<int?>("FranchiseId")
                         .HasColumnType("int");
@@ -119,14 +119,12 @@ namespace MovieCharactersEFCodeFirst.Migrations
                         .HasColumnType("nvarchar(300)");
 
                     b.Property<int?>("ReleaseYear")
-                        .IsRequired()
-                        .HasMaxLength(4)
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
 
                     b.Property<string>("Trailer")
                         .HasMaxLength(300)
