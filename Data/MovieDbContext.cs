@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Protocols;
 using MovieCharactersEFCodeFirst.Models;
+using System.Configuration;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace MovieCharactersEFCodeFirst.Data
 {
@@ -11,12 +14,10 @@ namespace MovieCharactersEFCodeFirst.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             optionsBuilder.UseSqlServer(
-                @"Data Source = .\SQLEXPRESS;
-                                Initial Catalog=MovieDB;
-                                Integrated Security = true;
-                                Encrypt = false;
-            ");
+                @$"{connectionString}"
+            );
         }
 
         // protected override void OnModelCreating(ModelBuilder modelBuilder)

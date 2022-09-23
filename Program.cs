@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Configuration;
+using Microsoft.IdentityModel.Protocols;
+using Microsoft.IdentityModel.Tokens;
 using MovieCharactersEFCodeFirst.Data;
 using MovieCharactersEFCodeFirst.Models;
 

@@ -18,3 +18,8 @@
    * NuGet Package Manager Console -> "update-database"
      OR
    * Dotnet CLI -> "dotnet ef database update"
+9. ConnectionString handling instead of hardcoding:
+   * Create App.Config to store ConnectionString (https://learn.microsoft.com/en-us/ef/ef6/fundamentals/configuring/connection-strings)
+   * Install System.Configuration.ConfigurationManager NuGet Package
+   * Usage : "string connectionString = ConfigurationManager.ConnectionStrings["YourConnectionStringName"].ConnectionString;" 
+   (https://learn.microsoft.com/en-us/dotnet/framework/data/adonet/connection-strings-and-configuration-files)
