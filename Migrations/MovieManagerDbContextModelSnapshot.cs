@@ -22,6 +22,54 @@ namespace MovieCharactersEFCodeFirst.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("CharacterMovie", b =>
+                {
+                    b.Property<int>("CharacterId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CharacterId", "MovieId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("CharacterMovie");
+                });
+
+            modelBuilder.Entity("MovieCharactersEFCodeFirst.Models.Character", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Alias")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
+
+                    b.Property<string>("Gender")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("Picture")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Character");
+                });
+
             modelBuilder.Entity("MovieCharactersEFCodeFirst.Models.Franchise", b =>
                 {
                     b.Property<int>("Id")
@@ -31,12 +79,13 @@ namespace MovieCharactersEFCodeFirst.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
 
                     b.HasKey("Id");
 
@@ -55,7 +104,7 @@ namespace MovieCharactersEFCodeFirst.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<int>("FranchiseId")
+                    b.Property<int?>("FranchiseId")
                         .HasColumnType("int");
 
                     b.Property<string>("Genre")
@@ -63,8 +112,8 @@ namespace MovieCharactersEFCodeFirst.Migrations
                         .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("Picture")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<int?>("ReleaseYear")
                         .IsRequired()
@@ -77,8 +126,8 @@ namespace MovieCharactersEFCodeFirst.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Trailer")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.HasKey("Id");
 
@@ -87,54 +136,31 @@ namespace MovieCharactersEFCodeFirst.Migrations
                     b.ToTable("Movie");
                 });
 
-            modelBuilder.Entity("MovieCharactersEFCodeFirst.Models.MovieCharacter", b =>
+            modelBuilder.Entity("CharacterMovie", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.HasOne("MovieCharactersEFCodeFirst.Models.Character", null)
+                        .WithMany()
+                        .HasForeignKey("CharacterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("Age")
-                        .HasMaxLength(3)
-                        .HasColumnType("int");
-
-                    b.Property<string>("Alias")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
-                    b.Property<string>("Gender")
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<string>("Picture")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Character");
+                    b.HasOne("MovieCharactersEFCodeFirst.Models.Movie", null)
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MovieCharactersEFCodeFirst.Models.Movie", b =>
                 {
-                    b.HasOne("MovieCharactersEFCodeFirst.Models.Franchise", "Franchise")
-                        .WithMany("Movies")
-                        .HasForeignKey("FranchiseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Franchise");
+                    b.HasOne("MovieCharactersEFCodeFirst.Models.Franchise", null)
+                        .WithMany("Movie")
+                        .HasForeignKey("FranchiseId");
                 });
 
             modelBuilder.Entity("MovieCharactersEFCodeFirst.Models.Franchise", b =>
                 {
-                    b.Navigation("Movies");
+                    b.Navigation("Movie");
                 });
 #pragma warning restore 612, 618
         }

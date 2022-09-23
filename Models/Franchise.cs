@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MovieCharactersEFCodeFirst.Models
 {
@@ -6,8 +7,13 @@ namespace MovieCharactersEFCodeFirst.Models
     public class Franchise
     {
         public int Id { get; set; }
+        [Required]
+        [MaxLength(60)]
         public string Name { get; set; }
-        public string Description { get; set; }
-        public List<Movie> Movies { get; set; }
+        [MaxLength(300)]
+        public string? Description { get; set; }
+        
+        // Relationships
+        public ICollection<Movie> Movie { get; set; }
     }
 }

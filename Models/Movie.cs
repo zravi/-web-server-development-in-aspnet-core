@@ -7,24 +7,26 @@ namespace MovieCharactersEFCodeFirst.Models
     [Table("Movie")]
     public class Movie
     {
+        public Movie()
+        {
+            this.Character = new HashSet<Character>();
+        }
         // Primary Key
         public int Id { get; set; }
         [Required]
-        [MaxLength(50)]
+        [MaxLength(60)]
         public string Title { get; set; }
         [MaxLength(30)]
         public string? Genre { get; set; }
-        [Required]
-        [MaxLength(4)]
         public int? ReleaseYear { get; set; }
-        [MaxLength(30)]
+        [MaxLength(60)]
         public string? Director { get; set; }
-        [MaxLength(100)]
+        [MaxLength(300)]
         public string? Picture { get; set; }
-        [MaxLength(100)]
+        [MaxLength(300)]
         public string? Trailer { get; set; }
-        public int FranchiseId { get; set; }
-        // Reference navigation property
-        public Franchise Franchise { get; set; }
+        
+        // Relationships
+        public ICollection<Character> Character { get; set; }
     }
 }
