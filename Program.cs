@@ -6,8 +6,9 @@ using Microsoft.IdentityModel.Tokens;
 using MovieCharactersEFCodeFirst.Data;
 using MovieCharactersEFCodeFirst.Models;
 
-Console.Write("Anime Movie Database");
+Console.Write("Anime Movie Database\n");
 await Execute();
+Console.Write("New test entries added.\nPress any button to exit app.\n");
 Console.ReadLine();
 
 async Task Execute()
