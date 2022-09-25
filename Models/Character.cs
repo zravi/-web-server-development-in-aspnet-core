@@ -9,7 +9,7 @@ namespace MovieCharactersEFCodeFirst.Models
     {
         public Character()
         {
-            this.Movie = new HashSet<Movie>();
+            this.Movies = new HashSet<Movie>();
         }
         public int Id { get; set; }
         [MaxLength(60)]
@@ -23,6 +23,6 @@ namespace MovieCharactersEFCodeFirst.Models
         public string? Picture { get; set; }
         
         // Relationships
-        public ICollection<Movie> Movie { get; set; }
+        public ICollection<Movie> Movies { get; set; }
     }
 }

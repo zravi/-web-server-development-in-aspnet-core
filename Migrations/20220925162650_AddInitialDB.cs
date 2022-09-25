@@ -2,6 +2,8 @@
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace MovieCharactersEFCodeFirst.Migrations
 {
     /// <inheritdoc />
@@ -69,12 +71,12 @@ namespace MovieCharactersEFCodeFirst.Migrations
                 name: "CharacterMovie",
                 columns: table => new
                 {
-                    CharacterId = table.Column<int>(type: "int", nullable: false),
-                    MovieId = table.Column<int>(type: "int", nullable: false)
+                    MovieId = table.Column<int>(type: "int", nullable: false),
+                    CharacterId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CharacterMovie", x => new { x.CharacterId, x.MovieId });
+                    table.PrimaryKey("PK_CharacterMovie", x => new { x.MovieId, x.CharacterId });
                     table.ForeignKey(
                         name: "FK_CharacterMovie_Character_CharacterId",
                         column: x => x.CharacterId,
@@ -89,10 +91,59 @@ namespace MovieCharactersEFCodeFirst.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_CharacterMovie_MovieId",
+            migrationBuilder.InsertData(
+                table: "Character",
+                columns: new[] { "Id", "Age", "Alias", "FullName", "Gender", "Picture" },
+                values: new object[,]
+                {
+                    { 1, 12, null, "Sophie Hatter", "Female", "https://static.wikia.nocookie.net/studio-ghibli/images/5/55/Starlight_Sophie.jpg/revision/latest?cb=20210708011122" },
+                    { 2, null, "Fire Demon", "Calcifer", null, "https://i.pinimg.com/736x/2d/ba/9a/2dba9a559e6b0a04f5086324ca96fe75.jpg" },
+                    { 3, 10, "Sen", "Chihiro Ogino", "Female", "https://static.wikia.nocookie.net/p__/images/9/90/Chihiro_cropped.jpg/revision/latest?cb=20220309165348&path-prefix=protagonist" },
+                    { 4, null, "Haku", "Spirit of the Kohaku River", null, "https://static.wikia.nocookie.net/studio-ghibli/images/3/37/Haku_Dragon_form.jpeg/revision/latest/scale-to-width-down/894?cb=20170904233228" },
+                    { 5, null, "Kaonashi", "No-Face", null, null },
+                    { 6, 10, null, "Satsuki Kusakabe", null, "https://static.wikia.nocookie.net/disney/images/b/b9/Satsuki.jpg/revision/latest?cb=20140725154339" },
+                    { 7, 3000, null, "Totoro", "Male", "https://static.wikia.nocookie.net/studio-ghibli/images/d/df/Totoro_in_the_rain.png/revision/latest/scale-to-width-down/350?cb=20200831205004" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Franchise",
+                columns: new[] { "Id", "Description", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Movies where Totoro makes an appearance.", "Totoro Franchise" },
+                    { 2, "Movies produced and/or animated by Studio Ghibli.", "Studio Ghibli" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Movie",
+                columns: new[] { "Id", "Director", "FranchiseId", "Genre", "Picture", "ReleaseYear", "Title", "Trailer" },
+                values: new object[,]
+                {
+                    { 1, "Hayao Miyazaki", null, "Anime", "https://upload.wikimedia.org/wikipedia/en/thumb/a/a0/Howls-moving-castleposter.jpg/220px-Howls-moving-castleposter.jpg", 2004, "Howl's Moving Castle", "https://www.youtube.com/watch?v=iwROgK94zcM" },
+                    { 2, "Hayao Miyazaki", null, "Anime", "https://upload.wikimedia.org/wikipedia/en/thumb/d/db/Spirited_Away_Japanese_poster.png/220px-Spirited_Away_Japanese_poster.png", 2001, "Spirited Away", "https://www.youtube.com/watch?v=ByXuk9QqQkk" },
+                    { 3, "Hayao Miyazaki", null, "Anime", "https://upload.wikimedia.org/wikipedia/en/thumb/0/02/My_Neighbor_Totoro_-_Tonari_no_Totoro_%28Movie_Poster%29.jpg/220px-My_Neighbor_Totoro_-_Tonari_no_Totoro_%28Movie_Poster%29.jpg", 1988, "My Neigbor Totoro", "https://www.youtube.com/watch?v=92a7Hj0ijLs" },
+                    { 4, "Hayao Miyazaki", null, "Anime", null, 2002, "Mei and the Kittenbus", "https://www.youtube.com/watch?v=92a7Hj0ijLs" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "CharacterMovie",
-                column: "MovieId");
+                columns: new[] { "CharacterId", "MovieId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 2, 1 },
+                    { 3, 2 },
+                    { 4, 2 },
+                    { 5, 2 },
+                    { 6, 3 },
+                    { 7, 3 },
+                    { 7, 4 }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CharacterMovie_CharacterId",
+                table: "CharacterMovie",
+                column: "CharacterId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Movie_FranchiseId",

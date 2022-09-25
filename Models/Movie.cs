@@ -9,7 +9,7 @@ namespace MovieCharactersEFCodeFirst.Models
     {
         public Movie()
         {
-            this.Character = new HashSet<Character>();
+            this.Characters = new HashSet<Character>();
         }
         // Primary Key
         public int Id { get; set; }
@@ -27,6 +27,6 @@ namespace MovieCharactersEFCodeFirst.Models
         public string? Trailer { get; set; }
         
         // Relationships
-        public ICollection<Character> Character { get; set; }
+        public ICollection<Character> Characters { get; set; }
     }
 }

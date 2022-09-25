@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieCharactersEFCodeFirst.Data;
 
@@ -11,9 +12,11 @@ using MovieCharactersEFCodeFirst.Data;
 namespace MovieCharactersEFCodeFirst.Migrations
 {
     [DbContext(typeof(MovieManagerDbContext))]
-    partial class MovieManagerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220925162650_AddInitialDB")]
+    partial class AddInitialDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
