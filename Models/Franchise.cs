@@ -14,6 +14,6 @@ namespace MovieCharactersEFCodeFirst.Models
         public string? Description { get; set; }
         
         // Relationships
-        public ICollection<Movie> Movie { get; set; }
+        public ICollection<Movie> Movies { get; set; }
     }
 }

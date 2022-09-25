@@ -6,20 +6,47 @@ using Microsoft.IdentityModel.Tokens;
 using MovieCharactersEFCodeFirst.Data;
 using MovieCharactersEFCodeFirst.Models;
 
-namespace MovieCharactersEFCodeFirst
+Console.Write("Anime Movie Database");
+await Execute();
+Console.ReadLine();
+
+async Task Execute()
 {
-    class Program
+    using (var db = new MovieManagerDbContext())
     {
-        static void Main(string[] args)
+        var movie = new Movie()
+        { Title = "TestMovie", Director = "TestDirector", Genre = "TestGenre", ReleaseYear = 2000, 
+            Characters = new List<Character>{new(){FullName = "TestMovieCharacter"}}};
+
+        var franchise = new Franchise()
         {
- 
-        }
-        
-        // public static IHostBuilder CreateHostBuilder(string[] args) =>
-        //     Host.CreateDefaultBuilder(args)
-        //         .ConfigureWebHostDefaults(webBuilder =>
-        //         {
-        //             webBuilder.UseStartup<Startup>();
-        //         });
+            Name = "TestFranchiseName",
+            Description = "TestFranchiseDescription",
+            Movies = new List<Movie>(){movie}
+        };
+
+        db.Franchise.Add(franchise);
+        await db.SaveChangesAsync();
     }
 }
+
+
+
+//
+// namespace MovieCharactersEFCodeFirst
+// {
+//     class Program
+//     {
+//         static void Main(string[] args)
+//         {
+//  
+//         }
+//
+//         // public static IHostBuilder CreateHostBuilder(string[] args) =>
+//         //     Host.CreateDefaultBuilder(args)
+//         //         .ConfigureWebHostDefaults(webBuilder =>
+//         //         {
+//         //             webBuilder.UseStartup<Startup>();
+//         //         });
+//     }
+// }
