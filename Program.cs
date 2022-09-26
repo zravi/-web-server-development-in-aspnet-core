@@ -1,53 +1,6 @@
-﻿using System;
-using System.Configuration;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Protocols;
-using Microsoft.IdentityModel.Tokens;
-using MovieCharactersEFCodeFirst.Data;
-using MovieCharactersEFCodeFirst.Models;
+﻿using MovieCharactersEFCodeFirst.Controllers;
 
-Console.Write("Anime Movie Database\n");
-await Execute();
-Console.Write("New test entries added.\nPress any button to exit app.\n");
-Console.ReadLine();
+var mc = new MenuController();
 
-async Task Execute()
-{
-    using (var db = new MovieManagerDbContext())
-    {
-        var movie = new Movie()
-        { Title = "TestMovie", Director = "TestDirector", Genre = "TestGenre", ReleaseYear = 2000, 
-            Characters = new List<Character>{new(){FullName = "TestMovieCharacter"}}};
+mc.MenuInit();
 
-        var franchise = new Franchise()
-        {
-            Name = "TestFranchiseName",
-            Description = "TestFranchiseDescription",
-            Movies = new List<Movie>(){movie}
-        };
-
-        db.Franchise.Add(franchise);
-        await db.SaveChangesAsync();
-    }
-}
-
-
-
-//
-// namespace MovieCharactersEFCodeFirst
-// {
-//     class Program
-//     {
-//         static void Main(string[] args)
-//         {
-//  
-//         }
-//
-//         // public static IHostBuilder CreateHostBuilder(string[] args) =>
-//         //     Host.CreateDefaultBuilder(args)
-//         //         .ConfigureWebHostDefaults(webBuilder =>
-//         //         {
-//         //             webBuilder.UseStartup<Startup>();
-//         //         });
-//     }
-// }
