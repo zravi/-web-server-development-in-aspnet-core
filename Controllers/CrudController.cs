@@ -1,5 +1,6 @@
 ﻿using MovieCharactersEFCodeFirst.Data;
 using MovieCharactersEFCodeFirst.Models;
+using MovieCharactersEFCodeFirst.Tools;
 
 namespace MovieCharactersEFCodeFirst.Controllers
 {
@@ -35,7 +36,41 @@ namespace MovieCharactersEFCodeFirst.Controllers
                 return (true, "");
             }
         }
-        
+
+        public async Task<(bool, string)> DeleteEntry(Datatypes dataType, int id)
+        {
+            using (var db = new MovieManagerDbContext())
+            {
+                try
+                {
+                    switch (dataType)
+                    {
+                        case Datatypes.Character:
+                            var character = db.Character.First(p => p.Id == id);
+                            db.Remove(character);
+                            break;
+                        case Datatypes.Movie:
+                            var movie = db.Movie.First(p => p.Id == id);
+                            db.Remove(movie);
+                            break;
+                        case Datatypes.Franchise:
+                            var franchise = db.Franchise.First(p => p.Id == id);
+                            db.Remove(franchise);
+                            break;
+                    }
+
+                    await db.SaveChangesAsync();
+                }
+                catch (Exception e)
+                {
+                    string message = e.InnerException != null ? e.InnerException.Message : e.Message;
+                    return (false, message);
+                }
+
+                return (true, "");
+            }
+        }
+
         public (List<Character>?, string) FetchAllCharacters()
         {
             using (var db = new MovieManagerDbContext())

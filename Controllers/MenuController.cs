@@ -71,7 +71,7 @@ namespace MovieCharactersEFCodeFirst.Controllers
                         // Character update prompt
                         break;
                     case ConsoleKey.D5:
-                        // Character delete prompt
+                        DeleteEntryById(typeof(Character), IdPrompt());
                         break;
                     case ConsoleKey.Escape:
                         returnToMainMenu = true;
@@ -94,8 +94,7 @@ namespace MovieCharactersEFCodeFirst.Controllers
 
                 foreach (Character c in characters)
                 {
-                    _sb.Append($" {c.Id,-5}| {c.FullName,-30}|" +
-                               $" {c.Alias,-30}| {c.Age,-7}| {c.Gender,-15}|\n");
+                    _sb.Append(GetCharacterDetailsDisplayFormat(c));
                 }
 
                 TextColorManager.SetColor(ConsoleColor.DarkGreen);
@@ -166,11 +165,54 @@ namespace MovieCharactersEFCodeFirst.Controllers
             }
             else
             {
-                TextColorManager.Warning($"Insert failed!" +
+                TextColorManager.Warning($"\nInsert failed!" +
                                          $"\nError: {errorMessage}" +
                                          $"\n\nPress any key to continue...");
                 Console.ReadLine();
             }
+        }
+
+        int IdPrompt()
+        {
+            Console.Clear();
+            Console.WriteLine("Insert ID:");
+            bool proceed = false;
+            int selectedId = 0;
+            while (!proceed)
+            {
+                if (int.TryParse(Console.ReadLine(), out int id))
+                {
+                    selectedId = id;
+                    proceed = true;
+                }
+            }
+
+            return selectedId;
+        }
+
+        void DeleteEntryById<T>(T type, int id)
+        {
+            Console.Clear();
+            Console.WriteLine("Deleting...");
+            (bool succeeded, string errorMessage) = _cc.DeleteEntry(Datatypes.Character, id).GetAwaiter().GetResult();
+            if (succeeded)
+            {
+                Console.WriteLine("Delete succeeded!");
+                Thread.Sleep(2000);
+            }
+            else
+            {
+                TextColorManager.Warning($"\nDelete failed!" +
+                                         $"\nError: {errorMessage}" +
+                                         $"\n\nPress any key to continue...");
+                Console.ReadLine();
+            }
+        }
+
+        string GetCharacterDetailsDisplayFormat(Character c)
+        {
+            return($" {c.Id,-5}| {c.FullName,-30}|" +
+                       $" {c.Alias,-30}| {c.Age,-7}| {c.Gender,-15}|\n");
         }
     }
 }
