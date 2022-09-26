@@ -8,7 +8,7 @@ namespace MovieCharactersEFCodeFirst.Controllers
     public class MenuController
     {
         readonly StringBuilder _sb = new();
-        readonly CrudController _cc = new();
+        // readonly CrudController _cc = new();
 
         public void MenuInit()
         {
@@ -71,7 +71,7 @@ namespace MovieCharactersEFCodeFirst.Controllers
                         // Character update prompt
                         break;
                     case ConsoleKey.D5:
-                        DeleteEntryById(typeof(Character), IdPrompt());
+                        DeleteEntryById(Datatypes.Character, IdPrompt());
                         break;
                     case ConsoleKey.Escape:
                         returnToMainMenu = true;
@@ -82,94 +82,94 @@ namespace MovieCharactersEFCodeFirst.Controllers
 
         void DisplayAllCharacters()
         {
-            (List<Character>? characters, string errorMessage) = _cc.FetchAllCharacters();
-
-            Console.Clear();
-            if (characters != null)
-            {
-                _sb.Clear();
-
-                _sb.Append(
-                    $" {"ID",-5}| {"NAME",-30}| {"ALIAS",-30}| {"AGE",-7}| {"GENDER",-15}|\n");
-
-                foreach (Character c in characters)
-                {
-                    _sb.Append(GetCharacterDetailsDisplayFormat(c));
-                }
-
-                TextColorManager.SetColor(ConsoleColor.DarkGreen);
-                Console.WriteLine(_sb.ToString());
-                TextColorManager.ResetColor();
-                Console.WriteLine("Press any key to continue...");
-                Console.ReadLine();
-            }
-            else
-            {
-                TextColorManager.Warning($"\nFetch characters failed!" +
-                                         $"\nError: {errorMessage}" +
-                                         $"\n\nPress any key to continue...");
-                Console.ReadLine();
-            }
+            // (List<Character>? characters, string errorMessage) = _cc.FetchAllCharacters();
+            //
+            // Console.Clear();
+            // if (characters != null)
+            // {
+            //     _sb.Clear();
+            //
+            //     _sb.Append(
+            //         $" {"ID",-5}| {"NAME",-30}| {"ALIAS",-30}| {"AGE",-7}| {"GENDER",-15}|\n");
+            //
+            //     foreach (Character c in characters)
+            //     {
+            //         _sb.Append(GetCharacterDetailsDisplayFormat(c));
+            //     }
+            //
+            //     TextColorManager.SetColor(ConsoleColor.DarkGreen);
+            //     Console.WriteLine(_sb.ToString());
+            //     TextColorManager.ResetColor();
+            //     Console.WriteLine("Press any key to continue...");
+            //     Console.ReadLine();
+            // }
+            // else
+            // {
+            //     TextColorManager.Warning($"\nFetch characters failed!" +
+            //                              $"\nError: {errorMessage}" +
+            //                              $"\n\nPress any key to continue...");
+            //     Console.ReadLine();
+            // }
         }
 
         void ShowCharacterInsertPrompt()
         {
-            string? name = "";
-            while (name.IsNullOrEmpty() || name?.Length < 1)
-            {
-                Console.Clear();
-                Console.Write("Insert name (required):\n");
-                name = Console.ReadLine();
-            }
-
-            Console.Clear();
-            TextColorManager.WriteInColor($"Name: {name}", ConsoleColor.DarkGreen);
-            Console.WriteLine("\nInsert alias (optional):\n");
-            string? aliasInput = Console.ReadLine();
-            string? alias = aliasInput.IsNullOrEmpty() ? null : aliasInput;
-
-            int? age = null;
-            Console.Clear();
-            TextColorManager.WriteInColor($"Name: {name}\nAlias: {alias}", ConsoleColor.DarkGreen);
-            Console.WriteLine("\nInsert age (optional):\n");
-            if (int.TryParse(Console.ReadLine(), out int inputAge))
-            {
-                age = inputAge;
-            }
-
-            Console.Clear();
-            TextColorManager.WriteInColor($"Name: {name}\nAlias: {alias}\nAge: {age}", ConsoleColor.DarkGreen);
-            Console.WriteLine("\nInsert gender (optional):\n");
-            string? genderInput = Console.ReadLine();
-            string? gender = genderInput.IsNullOrEmpty() ? null : genderInput;
-
-            Console.Clear();
-            TextColorManager.WriteInColor($"Name: {name}\nAlias: {alias}\nAge: {age}\nGender: {gender}", ConsoleColor.DarkGreen);
-            Console.WriteLine("\nInsert picture URL (optional):\n");
-            string? pictureInput = Console.ReadLine();
-            string? picture = pictureInput.IsNullOrEmpty() ? null : pictureInput;
-
-            Console.Clear();
-            TextColorManager.WriteInColor($"Name: {name}\nAlias: {alias}\nAge: {age}\nGender: {gender}\nPicture: {picture}", ConsoleColor.DarkGreen);
-
-            Character c = new Character()
-                { FullName = name, Age = age, Alias = alias, Gender = gender, Picture = picture };
-
-            Console.WriteLine("\nInserting...");
-
-            (bool succeeded, string errorMessage) = _cc.InsertEntry(c).GetAwaiter().GetResult();
-            if (succeeded)
-            {
-                Console.WriteLine("Insert succeeded!");
-                Thread.Sleep(2000);
-            }
-            else
-            {
-                TextColorManager.Warning($"\nInsert failed!" +
-                                         $"\nError: {errorMessage}" +
-                                         $"\n\nPress any key to continue...");
-                Console.ReadLine();
-            }
+            // string? name = "";
+            // while (name.IsNullOrEmpty() || name?.Length < 1)
+            // {
+            //     Console.Clear();
+            //     Console.Write("Insert name (required):\n");
+            //     name = Console.ReadLine();
+            // }
+            //
+            // Console.Clear();
+            // TextColorManager.WriteInColor($"Name: {name}", ConsoleColor.DarkGreen);
+            // Console.WriteLine("\nInsert alias (optional):\n");
+            // string? aliasInput = Console.ReadLine();
+            // string? alias = aliasInput.IsNullOrEmpty() ? null : aliasInput;
+            //
+            // int? age = null;
+            // Console.Clear();
+            // TextColorManager.WriteInColor($"Name: {name}\nAlias: {alias}", ConsoleColor.DarkGreen);
+            // Console.WriteLine("\nInsert age (optional):\n");
+            // if (int.TryParse(Console.ReadLine(), out int inputAge))
+            // {
+            //     age = inputAge;
+            // }
+            //
+            // Console.Clear();
+            // TextColorManager.WriteInColor($"Name: {name}\nAlias: {alias}\nAge: {age}", ConsoleColor.DarkGreen);
+            // Console.WriteLine("\nInsert gender (optional):\n");
+            // string? genderInput = Console.ReadLine();
+            // string? gender = genderInput.IsNullOrEmpty() ? null : genderInput;
+            //
+            // Console.Clear();
+            // TextColorManager.WriteInColor($"Name: {name}\nAlias: {alias}\nAge: {age}\nGender: {gender}", ConsoleColor.DarkGreen);
+            // Console.WriteLine("\nInsert picture URL (optional):\n");
+            // string? pictureInput = Console.ReadLine();
+            // string? picture = pictureInput.IsNullOrEmpty() ? null : pictureInput;
+            //
+            // Console.Clear();
+            // TextColorManager.WriteInColor($"Name: {name}\nAlias: {alias}\nAge: {age}\nGender: {gender}\nPicture: {picture}", ConsoleColor.DarkGreen);
+            //
+            // Character c = new Character()
+            //     { FullName = name, Age = age, Alias = alias, Gender = gender, Picture = picture };
+            //
+            // Console.WriteLine("\nInserting...");
+            //
+            // (bool succeeded, string errorMessage) = _cc.InsertEntry(c).GetAwaiter().GetResult();
+            // if (succeeded)
+            // {
+            //     Console.WriteLine("Insert succeeded!");
+            //     Thread.Sleep(2000);
+            // }
+            // else
+            // {
+            //     TextColorManager.Warning($"\nInsert failed!" +
+            //                              $"\nError: {errorMessage}" +
+            //                              $"\n\nPress any key to continue...");
+            //     Console.ReadLine();
+            // }
         }
 
         int IdPrompt()
@@ -190,23 +190,23 @@ namespace MovieCharactersEFCodeFirst.Controllers
             return selectedId;
         }
 
-        void DeleteEntryById<T>(T type, int id)
+        void DeleteEntryById(Datatypes datatype, int id)
         {
-            Console.Clear();
-            Console.WriteLine("Deleting...");
-            (bool succeeded, string errorMessage) = _cc.DeleteEntry(Datatypes.Character, id).GetAwaiter().GetResult();
-            if (succeeded)
-            {
-                Console.WriteLine("Delete succeeded!");
-                Thread.Sleep(2000);
-            }
-            else
-            {
-                TextColorManager.Warning($"\nDelete failed!" +
-                                         $"\nError: {errorMessage}" +
-                                         $"\n\nPress any key to continue...");
-                Console.ReadLine();
-            }
+            // Console.Clear();
+            // Console.WriteLine("Deleting...");
+            // (bool succeeded, string errorMessage) = _cc.DeleteEntry(datatype, id).GetAwaiter().GetResult();
+            // if (succeeded)
+            // {
+            //     Console.WriteLine("Delete succeeded!");
+            //     Thread.Sleep(2000);
+            // }
+            // else
+            // {
+            //     TextColorManager.Warning($"\nDelete failed!" +
+            //                              $"\nError: {errorMessage}" +
+            //                              $"\n\nPress any key to continue...");
+            //     Console.ReadLine();
+            // }
         }
 
         string GetCharacterDetailsDisplayFormat(Character c)
