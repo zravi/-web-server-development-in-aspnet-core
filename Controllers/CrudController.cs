@@ -35,5 +35,24 @@ namespace MovieCharactersEFCodeFirst.Controllers
                 return (true, "");
             }
         }
+        
+        public (List<Character>?, string) FetchAllCharacters()
+        {
+            using (var db = new MovieManagerDbContext())
+            {
+                List<Character>? characters;
+                try
+                {
+                    characters = db.Character.ToList();
+                }
+                catch (Exception e)
+                {
+                    string message = e.InnerException != null ? e.InnerException.Message : e.Message;
+                    return (null, message);
+                }
+
+                return (characters, "");
+            }
+        }
     }
 }
