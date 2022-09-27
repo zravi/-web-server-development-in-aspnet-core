@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using MovieCharactersEFCodeFirst.DTO.Franchise;
 using MovieCharactersEFCodeFirst.Models.Domain;
-using MovieCharactersEFCodeFirst.Models.DTO.Franchise;
 
 namespace MovieCharactersEFCodeFirst.Profiles
 {

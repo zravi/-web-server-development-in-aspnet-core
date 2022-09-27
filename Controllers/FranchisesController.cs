@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieCharactersEFCodeFirst.Data;
+using MovieCharactersEFCodeFirst.DTO.Franchise;
 using MovieCharactersEFCodeFirst.Models;
 using MovieCharactersEFCodeFirst.Models.Domain;
-using MovieCharactersEFCodeFirst.Models.DTO.Franchise;
 
 namespace MovieCharactersEFCodeFirst.Controllers
 {

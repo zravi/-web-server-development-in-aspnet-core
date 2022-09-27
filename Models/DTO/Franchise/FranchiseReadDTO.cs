@@ -1,4 +1,4 @@
-﻿namespace MovieCharactersEFCodeFirst.Models.DTO.Franchise
+namespace MovieCharactersEFCodeFirst.DTO.Franchise
 {
     public class FranchiseReadDTO
     {

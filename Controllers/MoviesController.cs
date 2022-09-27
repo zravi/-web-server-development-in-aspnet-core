@@ -3,7 +3,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MovieCharactersEFCodeFirst.DTO.Movie;
 using MovieCharactersEFCodeFirst.Models.Domain;
-using MovieCharactersEFCodeFirst.Models.DTO.Movie;
 using MovieCharactersEFCodeFirst.Services;
 
 namespace MovieCharactersEFCodeFirst.Controllers

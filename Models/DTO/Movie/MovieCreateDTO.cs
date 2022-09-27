@@ -1,4 +1,4 @@
-﻿namespace MovieCharactersEFCodeFirst.Models.DTO.Movie
+﻿namespace MovieCharactersEFCodeFirst.DTO.Movie
 {
     public class MovieCreateDTO
     {
