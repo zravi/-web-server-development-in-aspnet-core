@@ -121,6 +121,48 @@ namespace MovieCharactersEFCodeFirst.Controllers
 
             return NoContent();
         }
+        
+        /// <summary>
+        /// Insert movies to a franchise by ID.
+        /// </summary>
+        [HttpPut("{id}/movies")]
+        public async Task<IActionResult> UpdateFranchiseMovies(int id, List<int> movies)
+        {
+            if (!FranchiseExists(id))
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                Franchise franchiseToUpdateCharacters = await _context.Franchises
+                    .Include(f => f.Movies)
+                    .Where(f => f.Id == id)
+                    .FirstAsync();
+
+                List<Movie> addedMovies = new();
+                foreach (var movieId in movies)
+                {
+                    Movie m = await _context.Movies.FindAsync(movieId);
+                    if (m == null)  // Doesn't exist
+                    {
+                        throw new KeyNotFoundException();
+                    }
+
+                    addedMovies.Add(m);
+                }
+
+                franchiseToUpdateCharacters.Movies = addedMovies;
+                await _context.SaveChangesAsync();
+            }
+            catch (KeyNotFoundException)
+            {
+                return BadRequest("Invalid character");
+            }
+
+            return NoContent();
+        }
+        
 
         private bool FranchiseExists(int id)
         {
