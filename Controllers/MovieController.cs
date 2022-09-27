@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieCharactersEFCodeFirst.Data;
 using MovieCharactersEFCodeFirst.Models;
+using MovieCharactersEFCodeFirst.Models.Domain;
 
 namespace MovieCharactersEFCodeFirst.Controllers
 {

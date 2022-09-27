@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieCharactersEFCodeFirst.Data;
 using MovieCharactersEFCodeFirst.Models;
+using MovieCharactersEFCodeFirst.Models.Domain;
 using MovieCharactersEFCodeFirst.Models.DTO.Character;
 
 namespace MovieCharactersEFCodeFirst.Controllers
@@ -47,10 +48,11 @@ namespace MovieCharactersEFCodeFirst.Controllers
         [HttpGet("{id}", Name = "Example")]
         public async Task<ActionResult<CharacterReadDTO>> GetCharacter(int id)
         {
-          if (_context.Characters == null)
-          {
-              return NotFound();
-          }
+            if (_context.Characters == null)
+            {
+                return NotFound();
+            }
+
             var character = await _context.Characters.FindAsync(id);
 
             if (character == null)
@@ -107,10 +109,11 @@ namespace MovieCharactersEFCodeFirst.Controllers
         [HttpPost]
         public async Task<ActionResult<Character>> PostCharacter(Character character)
         {
-          if (_context.Characters == null)
-          {
-              return Problem("Entity set 'MovieManagerDbContext.Character'  is null.");
-          }
+            if (_context.Characters == null)
+            {
+                return Problem("Entity set 'MovieManagerDbContext.Character'  is null.");
+            }
+
             _context.Characters.Add(character);
             await _context.SaveChangesAsync();
 
@@ -129,6 +132,7 @@ namespace MovieCharactersEFCodeFirst.Controllers
             {
                 return NotFound();
             }
+
             var character = await _context.Characters.FindAsync(id);
             if (character == null)
             {

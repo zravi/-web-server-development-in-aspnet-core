@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.InteropServices;
 
-namespace MovieCharactersEFCodeFirst.Models
+namespace MovieCharactersEFCodeFirst.Models.Domain
 {
     [Table("Movie")]
     public class Movie
@@ -28,5 +27,7 @@ namespace MovieCharactersEFCodeFirst.Models
         
         // Relationships
         public ICollection<Character> Characters { get; set; }
+        public int FranchiseId { get; set; }
+        public Franchise Franchise { get; set; }
     }
 }

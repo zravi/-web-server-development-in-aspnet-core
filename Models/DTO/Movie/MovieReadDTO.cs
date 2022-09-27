@@ -8,7 +8,7 @@
         public string Director { get; set; }
         public string Picture { get; set; }
         public string Trailer { get; set; }
+        public int Franchise { get; set; }
         public List<int> Characters { get; set; }
-        public List<int> Franchises { get; set; }
     }
 }

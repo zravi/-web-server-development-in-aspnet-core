@@ -1,6 +1,7 @@
 ﻿using MovieCharactersEFCodeFirst.Models;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using MovieCharactersEFCodeFirst.Models.Domain;
 using MovieCharactersEFCodeFirst.Tools;
 
 namespace MovieCharactersEFCodeFirst.Controllers

@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using ConfigurationManager = System.Configuration.ConfigurationManager;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.Configuration;
+using MovieCharactersEFCodeFirst.Models.Domain;
 
 namespace MovieCharactersEFCodeFirst.Data
 {
