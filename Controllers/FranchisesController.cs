@@ -103,16 +103,17 @@ namespace MovieCharactersEFCodeFirst.Controllers
         /// Insert a new franchise.
         /// </summary>
         [HttpPost]
-        public async Task<ActionResult<Franchise>> PostFranchise(Franchise franchise)
+        public async Task<ActionResult<Franchise>> PostFranchise(FranchiseCreateDTO dtoFranchise)
         {
-          if (_context.Franchises == null)
-          {
-              return Problem("Entity set 'MovieManagerDbContext.Franchise'  is null.");
-          }
-            _context.Franchises.Add(franchise);
-            await _context.SaveChangesAsync();
+            if (_context.Franchises == null)
+            {
+                return Problem("Entity set 'MovieManagerDbContext.Franchises' is null.");
+            }
 
-            return CreatedAtAction("GetFranchise", new { id = franchise.Id }, franchise);
+            Franchise domainFranchise = _mapper.Map<Franchise>(dtoFranchise);
+            _context.Franchises.Add(domainFranchise);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction("GetFranchise", new { id = domainFranchise.Id }, domainFranchise);
         }
 
         /// <summary>
