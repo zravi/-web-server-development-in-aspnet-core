@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using MovieCharactersEFCodeFirst.DTO.Character;
 using MovieCharactersEFCodeFirst.Models.Domain;
-using MovieCharactersEFCodeFirst.Models.DTO.Character;
 
 namespace MovieCharactersEFCodeFirst.Profiles
 {
@@ -11,8 +11,8 @@ namespace MovieCharactersEFCodeFirst.Profiles
             // Character -> CharacterReadDTO
             CreateMap<Character, CharacterReadDTO>()
                 // Turn related movies to int list
-                .ForMember(cdto => cdto.Movies, opt => opt
-                    .MapFrom(c => c.Movies.Select(c => c.Id).ToList()))
+                // .ForMember(cdto => cdto.Movies, opt => opt
+                //     .MapFrom(c => c.Movies.Select(c => c.Id).ToList()))
                 .ReverseMap();
             // Character -> CharacterCreateDTO
             CreateMap<CharacterCreateDTO, Character>();

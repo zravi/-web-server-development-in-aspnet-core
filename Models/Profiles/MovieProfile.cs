@@ -13,6 +13,8 @@ namespace MovieCharactersEFCodeFirst.Profiles
                 .ForMember(mdto => mdto.Characters, opt => opt
                     .MapFrom(m => m.Characters.Select(c=> c.Id).ToList()))
                 .ReverseMap();
+            CreateMap<MovieCreateDTO, Movie>();
+            CreateMap<MovieEditDTO, Movie>();
         }
     }
 }

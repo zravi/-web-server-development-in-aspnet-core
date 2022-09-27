@@ -1,4 +1,4 @@
-﻿namespace MovieCharactersEFCodeFirst.Models.DTO.Character
+﻿namespace MovieCharactersEFCodeFirst.DTO.Character
 {
     public class CharacterEditDTO
     {

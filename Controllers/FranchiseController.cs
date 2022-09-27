@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieCharactersEFCodeFirst.Data;
 using MovieCharactersEFCodeFirst.Models;
 using MovieCharactersEFCodeFirst.Models.Domain;
+using MovieCharactersEFCodeFirst.Models.DTO.Franchise;
 
 namespace MovieCharactersEFCodeFirst.Controllers
 {
@@ -20,31 +22,30 @@ namespace MovieCharactersEFCodeFirst.Controllers
     public class FranchiseController : ControllerBase
     {
         private readonly MovieManagerDbContext _context;
+        private readonly IMapper _mapper;
 
-        public FranchiseController(MovieManagerDbContext context)
+        public FranchiseController(MovieManagerDbContext context, IMapper imapper)
         {
             _context = context;
+            _mapper = imapper;
         }
 
         // GET: api/Franchise
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Franchise>>> GetFranchise()
+        public async Task<ActionResult<IEnumerable<FranchiseReadDTO>>> GetFranchises()
         {
-          if (_context.Franchises == null)
-          {
-              return NotFound();
-          }
-            return await _context.Franchises.ToListAsync();
+            return _mapper.Map<List<FranchiseReadDTO>>(await _context.Franchises.ToListAsync());
         }
 
         // GET: api/Franchise/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Franchise>> GetFranchise(int id)
+        public async Task<ActionResult<FranchiseReadDTO>> GetFranchise(int id)
         {
-          if (_context.Franchises == null)
-          {
-              return NotFound();
-          }
+            if (_context.Franchises == null)
+            {
+                return NotFound();
+            }
+
             var franchise = await _context.Franchises.FindAsync(id);
 
             if (franchise == null)
@@ -52,7 +53,7 @@ namespace MovieCharactersEFCodeFirst.Controllers
                 return NotFound();
             }
 
-            return franchise;
+            return _mapper.Map<FranchiseReadDTO>(franchise);
         }
 
         // PUT: api/Franchise/5

@@ -1,4 +1,4 @@
-﻿namespace MovieCharactersEFCodeFirst.Models.DTO.Character
+﻿namespace MovieCharactersEFCodeFirst.DTO.Character
 {
     public class CharacterReadDTO
     {
@@ -7,6 +7,5 @@
         public string Alias { get; set; }
         public int Age { get; set; }
         public string Gender { get; set; }
-        public List<int> Movies { get; set; }
     }
 }

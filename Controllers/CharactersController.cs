@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieCharactersEFCodeFirst.Data;
+using MovieCharactersEFCodeFirst.DTO.Character;
 using MovieCharactersEFCodeFirst.Models;
 using MovieCharactersEFCodeFirst.Models.Domain;
-using MovieCharactersEFCodeFirst.Models.DTO.Character;
 
 namespace MovieCharactersEFCodeFirst.Controllers
 {
@@ -108,17 +108,29 @@ namespace MovieCharactersEFCodeFirst.Controllers
         /// <param name="character"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<Character>> PostCharacter(Character character)
+        public async Task<ActionResult<Character>> PostCharacter(CharacterCreateDTO dtoCharacter)
         {
             if (_context.Characters == null)
             {
-                return Problem("Entity set 'MovieManagerDbContext.Character'  is null.");
+                return Problem("Entity set 'MovieManagerDbContext.Character' is null.");
             }
 
-            _context.Characters.Add(character);
+            Character domainCharacter = _mapper.Map<Character>(dtoCharacter);
+            _context.Characters.Add(domainCharacter);
             await _context.SaveChangesAsync();
+            return CreatedAtAction("GetCharacter", new { id = domainCharacter.Id }, domainCharacter);
 
-            return CreatedAtAction("GetCharacter", new { id = character.Id }, character);
+            // _context.Characters.Add(character);
+            // await _context.SaveChangesAsync();
+            //
+            // return CreatedAtAction("GetCharacter", new { id = character.Id }, character);
+
+            // Movie domainMovie = _mapper.Map<Movie>(dtoMovie);
+            // domainMovie = await _movieService.AddMovieAsync(domainMovie);
+            //
+            // return CreatedAtAction("GetMovie",
+            //     new { id = domainMovie.Id },
+            //     _mapper.Map<MovieReadDTO>(domainMovie));
         }
 
         /// <summary>
