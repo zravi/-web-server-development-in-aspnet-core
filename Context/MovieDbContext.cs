@@ -63,7 +63,7 @@ namespace MovieCharactersEFCodeFirst.Data
             modelBuilder.Entity<Movie>().HasData(new Movie()
             {
                 Id = 3, 
-                Title = "My Neigbor Totoro",
+                Title = "My Neighbor Totoro",
                 Genre = "Anime",
                 Director = "Hayao Miyazaki", 
                 ReleaseYear = 1988, 
