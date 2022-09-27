@@ -30,7 +30,6 @@ namespace MovieCharactersEFCodeFirst
                     Title = "Movie API", 
                     Version = "v1",
                     Description = "A simple example ASP.NET Core Web API to manage a movie database.",
-                    TermsOfService = new Uri("https://example.com/terms"),
                     Contact = new OpenApiContact()
                     {
                         Name = "Tuomo Kuusisto",
