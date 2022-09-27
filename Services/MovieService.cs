@@ -24,10 +24,6 @@ namespace MovieCharactersEFCodeFirst.Services
         {
             return await _context.Movies.Include(m => m.Characters)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            // model.Item = await db.Items.Include(i => i.ItemVerifications)
-            //     .FirstOrDefaultAsync(i => i.Id == id.Value);
-            
-            return await _context.Movies.FindAsync(id);
         }
 
         public async Task<Movie> AddMovieAsync(Movie movie)

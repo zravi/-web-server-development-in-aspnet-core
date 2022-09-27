@@ -25,14 +25,19 @@ namespace MovieCharactersEFCodeFirst.Controllers
         }
 
         #region Generic CRUD
-        // GET: api/Movies
+
+        /// <summary>
+        /// Get a list of all movies.
+        /// </summary>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MovieReadDTO>>> GetMovies()
         {
             return _mapper.Map<List<MovieReadDTO>>(await _movieService.GetAllMoviesAsync());
         }
 
-        // GET: api/Movie/5
+        /// <summary>
+        /// Get a movie by ID.
+        /// </summary>
         [HttpGet("{id}")]
         public async Task<ActionResult<MovieReadDTO>> GetMovie(int id)
         {
@@ -46,8 +51,9 @@ namespace MovieCharactersEFCodeFirst.Controllers
             return _mapper.Map<MovieReadDTO>(movie);
         }
 
-        // PUT: api/Movie/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Update a movie by ID.
+        /// </summary>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMovie(int id, MovieEditDTO dtoMovie)
         {
@@ -66,8 +72,10 @@ namespace MovieCharactersEFCodeFirst.Controllers
             return NoContent();
         }
 
-        // POST: api/Movie
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Insert a new movie.
+        /// </summary>
+        /// <param name="dtoMovie"></param>
         [HttpPost]
         public async Task<ActionResult<Movie>> PostMovie(MovieCreateDTO dtoMovie)
         {
@@ -79,7 +87,9 @@ namespace MovieCharactersEFCodeFirst.Controllers
                 _mapper.Map<MovieReadDTO>(domainMovie));
         }
 
-        // DELETE: api/Movie/5
+        /// <summary>
+        /// Delete a movie by ID.
+        /// </summary>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMovie(int id)
         {
@@ -91,10 +101,14 @@ namespace MovieCharactersEFCodeFirst.Controllers
             await _movieService.DeleteMovieAsync(id);
             return NoContent();
         }
+
         #endregion
-        
+
         #region Update movie related information
-        
+
+        /// <summary>
+        /// Insert characters to a movie by ID.
+        /// </summary>
         [HttpPut("{id}/characters")]
         public async Task<IActionResult> UpdateMovieCharacters(int id, List<int> characters)
         {
@@ -114,6 +128,7 @@ namespace MovieCharactersEFCodeFirst.Controllers
 
             return NoContent();
         }
+
         #endregion
     }
 }

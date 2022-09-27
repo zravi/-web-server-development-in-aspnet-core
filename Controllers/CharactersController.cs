@@ -31,9 +31,8 @@ namespace MovieCharactersEFCodeFirst.Controllers
         }
 
         /// <summary>
-        /// Get all characters.
+        /// Get a list of all characters.
         /// </summary>
-        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharacters()
         {
@@ -43,8 +42,6 @@ namespace MovieCharactersEFCodeFirst.Controllers
         /// <summary>
         /// Get a character by ID.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         [HttpGet("{id}", Name = "Example")]
         public async Task<ActionResult<CharacterReadDTO>> GetCharacter(int id)
         {
@@ -63,13 +60,9 @@ namespace MovieCharactersEFCodeFirst.Controllers
             return _mapper.Map<CharacterReadDTO>(character);
         }
 
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         /// <summary>
         /// Update a character by ID.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="characterDTO"></param>
-        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCharacter(int id, CharacterEditDTO characterDTO)
         {
@@ -101,12 +94,9 @@ namespace MovieCharactersEFCodeFirst.Controllers
             return NoContent();
         }
 
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         /// <summary>
         /// Insert a new character.
         /// </summary>
-        /// <param name="character"></param>
-        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<Character>> PostCharacter(CharacterCreateDTO dtoCharacter)
         {
@@ -119,25 +109,11 @@ namespace MovieCharactersEFCodeFirst.Controllers
             _context.Characters.Add(domainCharacter);
             await _context.SaveChangesAsync();
             return CreatedAtAction("GetCharacter", new { id = domainCharacter.Id }, domainCharacter);
-
-            // _context.Characters.Add(character);
-            // await _context.SaveChangesAsync();
-            //
-            // return CreatedAtAction("GetCharacter", new { id = character.Id }, character);
-
-            // Movie domainMovie = _mapper.Map<Movie>(dtoMovie);
-            // domainMovie = await _movieService.AddMovieAsync(domainMovie);
-            //
-            // return CreatedAtAction("GetMovie",
-            //     new { id = domainMovie.Id },
-            //     _mapper.Map<MovieReadDTO>(domainMovie));
         }
 
         /// <summary>
-        /// Delete a character.
+        /// Delete a character by ID.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCharacter(int id)
         {
