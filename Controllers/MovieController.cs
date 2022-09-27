@@ -1,15 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Mime;
-using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using MovieCharactersEFCodeFirst.Data;
 using MovieCharactersEFCodeFirst.DTO.Movie;
-using MovieCharactersEFCodeFirst.Models;
 using MovieCharactersEFCodeFirst.Models.Domain;
 using MovieCharactersEFCodeFirst.Models.DTO.Movie;
 using MovieCharactersEFCodeFirst.Services;
@@ -23,13 +15,11 @@ namespace MovieCharactersEFCodeFirst.Controllers
     [ApiConventionType(typeof(DefaultApiConventions))]
     public class MovieController : ControllerBase
     {
-        // private readonly MovieManagerDbContext _context;
         private readonly IMapper _mapper;
         private readonly IMovieService _movieService;
 
-        public MovieController(/*MovieManagerDbContext context, */IMapper mapper, IMovieService movieService)
+        public MovieController(IMapper mapper, IMovieService movieService)
         {
-            // _context = context;
             _mapper = mapper;
             _movieService = movieService;
         }
@@ -40,7 +30,6 @@ namespace MovieCharactersEFCodeFirst.Controllers
         public async Task<ActionResult<IEnumerable<MovieReadDTO>>> GetMovies()
         {
             return _mapper.Map<List<MovieReadDTO>>(await _movieService.GetAllMoviesAsync());
-            // return _mapper.Map<List<MovieReadDTO>>(await _context.Movies.Include(m => m.Characters).Include(m => m.Franchise).ToListAsync());
         }
 
         // GET: api/Movie/5
@@ -55,18 +44,6 @@ namespace MovieCharactersEFCodeFirst.Controllers
             }
 
             return _mapper.Map<MovieReadDTO>(movie);
-            // if (_context.Movies == null)
-            // {
-            //     return NotFound();
-            // }
-            //   var movie = await _context.Movies.FindAsync(id);
-            //
-            //   if (movie == null)
-            //   {
-            //       return NotFound();
-            //   }
-            //
-            //   return movie;
         }
 
         // PUT: api/Movie/5
@@ -87,31 +64,6 @@ namespace MovieCharactersEFCodeFirst.Controllers
             Movie domainMovie = _mapper.Map<Movie>(dtoMovie);
             await _movieService.UpdateMovieAsync(domainMovie);
             return NoContent();
-
-            // if (id != movie.Id)
-            // {
-            //     return BadRequest();
-            // }
-            //
-            // _context.Entry(movie).State = EntityState.Modified;
-            //
-            // try
-            // {
-            //     await _context.SaveChangesAsync();
-            // }
-            // catch (DbUpdateConcurrencyException)
-            // {
-            //     if (!MovieExists(id))
-            //     {
-            //         return NotFound();
-            //     }
-            //     else
-            //     {
-            //         throw;
-            //     }
-            // }
-            //
-            // return NoContent();
         }
 
         // POST: api/Movie
@@ -125,14 +77,6 @@ namespace MovieCharactersEFCodeFirst.Controllers
             return CreatedAtAction("GetMovie",
                 new { id = domainMovie.Id },
                 _mapper.Map<MovieReadDTO>(domainMovie));
-            // if (_context.Movies == null)
-            // {
-            //     return Problem("Entity set 'MovieManagerDbContext.Movie'  is null.");
-            // }
-            //   _context.Movies.Add(movie);
-            //   await _context.SaveChangesAsync();
-            //
-            //   return CreatedAtAction("GetMovie", new { id = movie.Id }, movie);
         }
 
         // DELETE: api/Movie/5
@@ -145,28 +89,8 @@ namespace MovieCharactersEFCodeFirst.Controllers
             }
 
             await _movieService.DeleteMovieAsync(id);
-
             return NoContent();
-            // if (_context.Movies == null)
-            // {
-            //     return NotFound();
-            // }
-            // var movie = await _context.Movies.FindAsync(id);
-            // if (movie == null)
-            // {
-            //     return NotFound();
-            // }
-            //
-            // _context.Movies.Remove(movie);
-            // await _context.SaveChangesAsync();
-            //
-            // return NoContent();
         }
-
-        // private bool MovieExists(int id)
-        // {
-        //     return (_context.Movies?.Any(e => e.Id == id)).GetValueOrDefault();
-        // }
         #endregion
         
         #region Update movie related information
