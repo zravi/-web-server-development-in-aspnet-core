@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieCharactersEFCodeFirst.Data;
+using MovieCharactersEFCodeFirst.DTO.Movie;
 using MovieCharactersEFCodeFirst.Models;
 using MovieCharactersEFCodeFirst.Models.Domain;
+using MovieCharactersEFCodeFirst.Models.DTO.Movie;
 
 namespace MovieCharactersEFCodeFirst.Controllers
 {
@@ -20,21 +23,23 @@ namespace MovieCharactersEFCodeFirst.Controllers
     public class MovieController : ControllerBase
     {
         private readonly MovieManagerDbContext _context;
+        private readonly IMapper _mapper;
 
-        public MovieController(MovieManagerDbContext context)
+        public MovieController(MovieManagerDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        // GET: api/Movie
+        // GET: api/Movies
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Movie>>> GetMovie()
+        public async Task<ActionResult<IEnumerable<MovieReadDTO>>> GetMovies()
         {
           if (_context.Movies == null)
           {
               return NotFound();
           }
-            return await _context.Movies.ToListAsync();
+            return _mapper.Map<List<MovieReadDTO>>(await _context.Movies.Include(m => m.Characters).Include(m => m.Franchise).ToListAsync());
         }
 
         // GET: api/Movie/5

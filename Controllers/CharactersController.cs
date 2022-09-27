@@ -65,20 +65,21 @@ namespace MovieCharactersEFCodeFirst.Controllers
 
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         /// <summary>
-        /// Update a characted by ID.
+        /// Update a character by ID.
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="character"></param>
+        /// <param name="characterDTO"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCharacter(int id, CharacterEditDTO character)
+        public async Task<IActionResult> PutCharacter(int id, CharacterEditDTO characterDTO)
         {
-            if (id != character.Id)
+            if (id != characterDTO.Id)
             {
                 return BadRequest();
             }
 
-            Character domainCharacter = _mapper.Map<Character>(character);
+            // Map to domain
+            Character domainCharacter = _mapper.Map<Character>(characterDTO);
             _context.Entry(domainCharacter).State = EntityState.Modified;
 
             try
