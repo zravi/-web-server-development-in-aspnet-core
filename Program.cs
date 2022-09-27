@@ -1,24 +1,4 @@
-﻿
-
-//
-// var builder = WebApplication.CreateBuilder(args);
-//
-// builder.Services.AddControllers();
-//
-// builder.Services.AddScoped<IDependency, MyDependency>();
-//
-// var app = builder.Build();
-//
-// app.UseHttpsRedirection();
-// app.UseAuthorization();
-// app.MapControllers();
-// app.Run();
-
-// var mc = new MenuController();
-//
-// mc.MenuInit();
-
-namespace MovieCharactersEFCodeFirst;
+﻿namespace MovieCharactersEFCodeFirst;
 
 public class Program
 {
