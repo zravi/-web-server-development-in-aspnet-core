@@ -13,12 +13,12 @@ namespace MovieCharactersEFCodeFirst.Controllers
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
     [ApiConventionType(typeof(DefaultApiConventions))]
-    public class MovieController : ControllerBase
+    public class MoviesController : ControllerBase
     {
         private readonly IMapper _mapper;
         private readonly IMovieService _movieService;
 
-        public MovieController(IMapper mapper, IMovieService movieService)
+        public MoviesController(IMapper mapper, IMovieService movieService)
         {
             _mapper = mapper;
             _movieService = movieService;

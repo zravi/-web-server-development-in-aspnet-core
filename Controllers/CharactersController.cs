@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieCharactersEFCodeFirst.Data;
 using MovieCharactersEFCodeFirst.DTO.Character;
-using MovieCharactersEFCodeFirst.Models;
 using MovieCharactersEFCodeFirst.Models.Domain;
 
 namespace MovieCharactersEFCodeFirst.Controllers

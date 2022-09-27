@@ -19,25 +19,37 @@ namespace MovieCharactersEFCodeFirst.Controllers
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
     [ApiConventionType(typeof(DefaultApiConventions))]
-    public class FranchiseController : ControllerBase
+    public class FranchisesController : ControllerBase
     {
         private readonly MovieManagerDbContext _context;
         private readonly IMapper _mapper;
 
-        public FranchiseController(MovieManagerDbContext context, IMapper imapper)
+        public FranchisesController(MovieManagerDbContext context, IMapper imapper)
         {
             _context = context;
             _mapper = imapper;
         }
 
-        // GET: api/Franchise
+        /// <summary>
+        /// Get a list of all franchises.
+        /// </summary>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FranchiseReadDTO>>> GetFranchises()
         {
-            return _mapper.Map<List<FranchiseReadDTO>>(await _context.Franchises.ToListAsync());
+            // return await _context.Movies
+            //     .Include(m => m.Characters)
+                // .ToListAsync();
+            
+            return _mapper.Map<List<FranchiseReadDTO>>(
+                await _context.Franchises
+                    .Include(f => f.Movies)
+                    .ToListAsync()
+            );
         }
 
-        // GET: api/Franchise/5
+        /// <summary>
+        /// Get a franchise by ID.
+        /// </summary>
         [HttpGet("{id}")]
         public async Task<ActionResult<FranchiseReadDTO>> GetFranchise(int id)
         {
@@ -56,8 +68,9 @@ namespace MovieCharactersEFCodeFirst.Controllers
             return _mapper.Map<FranchiseReadDTO>(franchise);
         }
 
-        // PUT: api/Franchise/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Update a movie by ID.
+        /// </summary>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutFranchise(int id, Franchise franchise)
         {
@@ -87,8 +100,9 @@ namespace MovieCharactersEFCodeFirst.Controllers
             return NoContent();
         }
 
-        // POST: api/Franchise
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Insert a new franchise.
+        /// </summary>
         [HttpPost]
         public async Task<ActionResult<Franchise>> PostFranchise(Franchise franchise)
         {
@@ -102,7 +116,9 @@ namespace MovieCharactersEFCodeFirst.Controllers
             return CreatedAtAction("GetFranchise", new { id = franchise.Id }, franchise);
         }
 
-        // DELETE: api/Franchise/5
+        /// <summary>
+        /// Delete a franchise by ID.
+        /// </summary>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFranchise(int id)
         {

@@ -9,6 +9,8 @@ namespace MovieCharactersEFCodeFirst.Profiles
         public FranchiseProfile()
         {
             CreateMap<Franchise, FranchiseReadDTO>()
+                .ForMember(fdto => fdto.Movies, opt => opt
+                    .MapFrom(f => f.Movies.Select(m => m.Id).ToList()))
                 .ReverseMap();
             CreateMap<FranchiseCreateDTO, Franchise>()
                 .ReverseMap();
