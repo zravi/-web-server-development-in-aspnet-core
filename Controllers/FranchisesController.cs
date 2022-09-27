@@ -66,17 +66,19 @@ namespace MovieCharactersEFCodeFirst.Controllers
         }
 
         /// <summary>
-        /// Update a movie by ID.
+        /// Update a franchise by ID.
         /// </summary>
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFranchise(int id, Franchise franchise)
+        public async Task<IActionResult> PutFranchise(int id, FranchiseEditDTO franchiseDTO)
         {
-            if (id != franchise.Id)
+            if (id != franchiseDTO.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(franchise).State = EntityState.Modified;
+            // Map to domain
+            Franchise domainFranchise = _mapper.Map<Franchise>(franchiseDTO);
+            _context.Entry(domainFranchise).State = EntityState.Modified;
 
             try
             {
