@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using MovieCharactersEFCodeFirst.Data;
+using MovieCharactersEFCodeFirst.Services;
 
 namespace MovieCharactersEFCodeFirst
 {
@@ -21,8 +22,8 @@ namespace MovieCharactersEFCodeFirst
             services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<MovieManagerDbContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            // Add our ICoachService - remember, this can also be called repository.
-            // services.AddScoped(typeof(ICoachService), typeof(CoachService));
+            // Add IMovieService
+            services.AddScoped(typeof(IMovieService), typeof(MovieService));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { 
