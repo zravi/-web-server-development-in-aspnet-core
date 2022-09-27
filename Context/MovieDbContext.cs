@@ -46,7 +46,8 @@ namespace MovieCharactersEFCodeFirst.Data
                 Director = "Hayao Miyazaki", 
                 ReleaseYear = 2004, 
                 Picture = "https://upload.wikimedia.org/wikipedia/en/thumb/a/a0/Howls-moving-castleposter.jpg/220px-Howls-moving-castleposter.jpg", 
-                Trailer = "https://www.youtube.com/watch?v=iwROgK94zcM"
+                Trailer = "https://www.youtube.com/watch?v=iwROgK94zcM",
+                FranchiseId = 1
             });
             
             modelBuilder.Entity<Movie>().HasData(new Movie()
@@ -57,7 +58,8 @@ namespace MovieCharactersEFCodeFirst.Data
                 Director = "Hayao Miyazaki", 
                 ReleaseYear = 2001, 
                 Picture = "https://upload.wikimedia.org/wikipedia/en/thumb/d/db/Spirited_Away_Japanese_poster.png/220px-Spirited_Away_Japanese_poster.png", 
-                Trailer = "https://www.youtube.com/watch?v=ByXuk9QqQkk"
+                Trailer = "https://www.youtube.com/watch?v=ByXuk9QqQkk",
+                FranchiseId = 1
             });
             
             modelBuilder.Entity<Movie>().HasData(new Movie()
@@ -68,7 +70,8 @@ namespace MovieCharactersEFCodeFirst.Data
                 Director = "Hayao Miyazaki", 
                 ReleaseYear = 1988, 
                 Picture = "https://upload.wikimedia.org/wikipedia/en/thumb/0/02/My_Neighbor_Totoro_-_Tonari_no_Totoro_%28Movie_Poster%29.jpg/220px-My_Neighbor_Totoro_-_Tonari_no_Totoro_%28Movie_Poster%29.jpg", 
-                Trailer = "https://www.youtube.com/watch?v=92a7Hj0ijLs"
+                Trailer = "https://www.youtube.com/watch?v=92a7Hj0ijLs",
+                FranchiseId = 1
             });
             
             modelBuilder.Entity<Movie>().HasData(new Movie()
@@ -78,7 +81,27 @@ namespace MovieCharactersEFCodeFirst.Data
                 Genre = "Anime",
                 Director = "Hayao Miyazaki", 
                 ReleaseYear = 2002, 
-                Trailer = "https://www.youtube.com/watch?v=92a7Hj0ijLs"
+                Trailer = "https://www.youtube.com/watch?v=92a7Hj0ijLs",
+                FranchiseId = 1
+            });
+            
+            modelBuilder.Entity<Movie>().HasData(new Movie()
+            {
+                Id = 5,
+                Title = "Death Note",
+                Genre = "Anime",
+                Director = "Adam Wingard", 
+                ReleaseYear = 2017, 
+                FranchiseId = 2
+            });
+            
+            modelBuilder.Entity<Movie>().HasData(new Movie()
+            {
+                Id = 6,
+                Title = "Ghost in the Shell",
+                Genre = "Anime",
+                Director = "Mamoru Oshii",
+                ReleaseYear = 1995
             });
             #endregion
 
@@ -147,19 +170,26 @@ namespace MovieCharactersEFCodeFirst.Data
             modelBuilder.Entity<Franchise>().HasData(new Franchise()
             {
                 Id = 1,
-                Name = "Totoro Franchise",
-                Description = "Movies where Totoro makes an appearance."
+                Name = "Studio Ghibli",
+                Description = "Studio Ghibli Inc. is a Japanese animation film studio based in Koganei, Tokyo. The studio is best known for its animated films and has also produced several short films, television commercials, and a television movie."
             });
             
             modelBuilder.Entity<Franchise>().HasData(new Franchise()
             {
                 Id = 2,
-                Name = "Studio Ghibli",
-                Description = "Movies produced and/or animated by Studio Ghibli."
+                Name = "Madhouse",
+                Description = "Madhouse Inc. is a Japanese animation studio founded in 1972 by former Mushi Pro animators, including Masao Maruyama, Osamu Dezaki, Rintaro, and Yoshiaki Kawajiri."
+            });
+            
+            modelBuilder.Entity<Franchise>().HasData(new Franchise()
+            {
+                Id = 3,
+                Name = "Toei Animation",
+                Description = "Toei Animation Co., Ltd. is a Japanese animation studio controlled primarily by its namesake Toei Company. It has created a number of television series and movies and has adapted Japanese comics as animated series, many of which are popular around the world."
             });
             #endregion
             
-            // Seed m2m coach-certification. Need to define m2m and access linking table
+            // Seed m2m character-movie. Need to define m2m and access linking table
             modelBuilder.Entity<Movie>()
                 .HasMany(p => p.Characters)
                 .WithMany(m => m.Movies)

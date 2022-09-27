@@ -79,7 +79,7 @@ namespace MovieCharactersEFCodeFirst.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MovieCharactersEFCodeFirst.Models.Character", b =>
+            modelBuilder.Entity("MovieCharactersEFCodeFirst.Models.Domain.Character", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -166,7 +166,7 @@ namespace MovieCharactersEFCodeFirst.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MovieCharactersEFCodeFirst.Models.Franchise", b =>
+            modelBuilder.Entity("MovieCharactersEFCodeFirst.Models.Domain.Franchise", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -191,18 +191,24 @@ namespace MovieCharactersEFCodeFirst.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Movies where Totoro makes an appearance.",
-                            Name = "Totoro Franchise"
+                            Description = "Studio Ghibli Inc. is a Japanese animation film studio based in Koganei, Tokyo. The studio is best known for its animated films and has also produced several short films, television commercials, and a television movie.",
+                            Name = "Studio Ghibli"
                         },
                         new
                         {
                             Id = 2,
-                            Description = "Movies produced and/or animated by Studio Ghibli.",
-                            Name = "Studio Ghibli"
+                            Description = "Madhouse Inc. is a Japanese animation studio founded in 1972 by former Mushi Pro animators, including Masao Maruyama, Osamu Dezaki, Rintaro, and Yoshiaki Kawajiri.",
+                            Name = "Madhouse"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Toei Animation Co., Ltd. is a Japanese animation studio controlled primarily by its namesake Toei Company. It has created a number of television series and movies and has adapted Japanese comics as animated series, many of which are popular around the world.",
+                            Name = "Toei Animation"
                         });
                 });
 
-            modelBuilder.Entity("MovieCharactersEFCodeFirst.Models.Movie", b =>
+            modelBuilder.Entity("MovieCharactersEFCodeFirst.Models.Domain.Movie", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -248,6 +254,7 @@ namespace MovieCharactersEFCodeFirst.Migrations
                         {
                             Id = 1,
                             Director = "Hayao Miyazaki",
+                            FranchiseId = 1,
                             Genre = "Anime",
                             Picture = "https://upload.wikimedia.org/wikipedia/en/thumb/a/a0/Howls-moving-castleposter.jpg/220px-Howls-moving-castleposter.jpg",
                             ReleaseYear = 2004,
@@ -258,6 +265,7 @@ namespace MovieCharactersEFCodeFirst.Migrations
                         {
                             Id = 2,
                             Director = "Hayao Miyazaki",
+                            FranchiseId = 1,
                             Genre = "Anime",
                             Picture = "https://upload.wikimedia.org/wikipedia/en/thumb/d/db/Spirited_Away_Japanese_poster.png/220px-Spirited_Away_Japanese_poster.png",
                             ReleaseYear = 2001,
@@ -268,48 +276,69 @@ namespace MovieCharactersEFCodeFirst.Migrations
                         {
                             Id = 3,
                             Director = "Hayao Miyazaki",
+                            FranchiseId = 1,
                             Genre = "Anime",
                             Picture = "https://upload.wikimedia.org/wikipedia/en/thumb/0/02/My_Neighbor_Totoro_-_Tonari_no_Totoro_%28Movie_Poster%29.jpg/220px-My_Neighbor_Totoro_-_Tonari_no_Totoro_%28Movie_Poster%29.jpg",
                             ReleaseYear = 1988,
-                            Title = "My Neigbor Totoro",
+                            Title = "My Neighbor Totoro",
                             Trailer = "https://www.youtube.com/watch?v=92a7Hj0ijLs"
                         },
                         new
                         {
                             Id = 4,
                             Director = "Hayao Miyazaki",
+                            FranchiseId = 1,
                             Genre = "Anime",
                             ReleaseYear = 2002,
                             Title = "Mei and the Kittenbus",
                             Trailer = "https://www.youtube.com/watch?v=92a7Hj0ijLs"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Director = "Adam Wingard",
+                            FranchiseId = 2,
+                            Genre = "Anime",
+                            ReleaseYear = 2017,
+                            Title = "Death Note"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Director = "Mamoru Oshii",
+                            Genre = "Anime",
+                            ReleaseYear = 1995,
+                            Title = "Ghost in the Shell"
                         });
                 });
 
             modelBuilder.Entity("CharacterMovie", b =>
                 {
-                    b.HasOne("MovieCharactersEFCodeFirst.Models.Character", null)
+                    b.HasOne("MovieCharactersEFCodeFirst.Models.Domain.Character", null)
                         .WithMany()
                         .HasForeignKey("CharacterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MovieCharactersEFCodeFirst.Models.Movie", null)
+                    b.HasOne("MovieCharactersEFCodeFirst.Models.Domain.Movie", null)
                         .WithMany()
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MovieCharactersEFCodeFirst.Models.Movie", b =>
+            modelBuilder.Entity("MovieCharactersEFCodeFirst.Models.Domain.Movie", b =>
                 {
-                    b.HasOne("MovieCharactersEFCodeFirst.Models.Franchise", null)
-                        .WithMany("Movie")
+                    b.HasOne("MovieCharactersEFCodeFirst.Models.Domain.Franchise", "Franchise")
+                        .WithMany("Movies")
                         .HasForeignKey("FranchiseId");
+
+                    b.Navigation("Franchise");
                 });
 
-            modelBuilder.Entity("MovieCharactersEFCodeFirst.Models.Franchise", b =>
+            modelBuilder.Entity("MovieCharactersEFCodeFirst.Models.Domain.Franchise", b =>
                 {
-                    b.Navigation("Movie");
+                    b.Navigation("Movies");
                 });
 #pragma warning restore 612, 618
         }

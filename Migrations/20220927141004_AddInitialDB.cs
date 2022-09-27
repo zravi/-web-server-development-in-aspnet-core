@@ -110,8 +110,9 @@ namespace MovieCharactersEFCodeFirst.Migrations
                 columns: new[] { "Id", "Description", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Movies where Totoro makes an appearance.", "Totoro Franchise" },
-                    { 2, "Movies produced and/or animated by Studio Ghibli.", "Studio Ghibli" }
+                    { 1, "Studio Ghibli Inc. is a Japanese animation film studio based in Koganei, Tokyo. The studio is best known for its animated films and has also produced several short films, television commercials, and a television movie.", "Studio Ghibli" },
+                    { 2, "Madhouse Inc. is a Japanese animation studio founded in 1972 by former Mushi Pro animators, including Masao Maruyama, Osamu Dezaki, Rintaro, and Yoshiaki Kawajiri.", "Madhouse" },
+                    { 3, "Toei Animation Co., Ltd. is a Japanese animation studio controlled primarily by its namesake Toei Company. It has created a number of television series and movies and has adapted Japanese comics as animated series, many of which are popular around the world.", "Toei Animation" }
                 });
 
             migrationBuilder.InsertData(
@@ -119,10 +120,12 @@ namespace MovieCharactersEFCodeFirst.Migrations
                 columns: new[] { "Id", "Director", "FranchiseId", "Genre", "Picture", "ReleaseYear", "Title", "Trailer" },
                 values: new object[,]
                 {
-                    { 1, "Hayao Miyazaki", null, "Anime", "https://upload.wikimedia.org/wikipedia/en/thumb/a/a0/Howls-moving-castleposter.jpg/220px-Howls-moving-castleposter.jpg", 2004, "Howl's Moving Castle", "https://www.youtube.com/watch?v=iwROgK94zcM" },
-                    { 2, "Hayao Miyazaki", null, "Anime", "https://upload.wikimedia.org/wikipedia/en/thumb/d/db/Spirited_Away_Japanese_poster.png/220px-Spirited_Away_Japanese_poster.png", 2001, "Spirited Away", "https://www.youtube.com/watch?v=ByXuk9QqQkk" },
-                    { 3, "Hayao Miyazaki", null, "Anime", "https://upload.wikimedia.org/wikipedia/en/thumb/0/02/My_Neighbor_Totoro_-_Tonari_no_Totoro_%28Movie_Poster%29.jpg/220px-My_Neighbor_Totoro_-_Tonari_no_Totoro_%28Movie_Poster%29.jpg", 1988, "My Neigbor Totoro", "https://www.youtube.com/watch?v=92a7Hj0ijLs" },
-                    { 4, "Hayao Miyazaki", null, "Anime", null, 2002, "Mei and the Kittenbus", "https://www.youtube.com/watch?v=92a7Hj0ijLs" }
+                    { 6, "Mamoru Oshii", null, "Anime", null, 1995, "Ghost in the Shell", null },
+                    { 1, "Hayao Miyazaki", 1, "Anime", "https://upload.wikimedia.org/wikipedia/en/thumb/a/a0/Howls-moving-castleposter.jpg/220px-Howls-moving-castleposter.jpg", 2004, "Howl's Moving Castle", "https://www.youtube.com/watch?v=iwROgK94zcM" },
+                    { 2, "Hayao Miyazaki", 1, "Anime", "https://upload.wikimedia.org/wikipedia/en/thumb/d/db/Spirited_Away_Japanese_poster.png/220px-Spirited_Away_Japanese_poster.png", 2001, "Spirited Away", "https://www.youtube.com/watch?v=ByXuk9QqQkk" },
+                    { 3, "Hayao Miyazaki", 1, "Anime", "https://upload.wikimedia.org/wikipedia/en/thumb/0/02/My_Neighbor_Totoro_-_Tonari_no_Totoro_%28Movie_Poster%29.jpg/220px-My_Neighbor_Totoro_-_Tonari_no_Totoro_%28Movie_Poster%29.jpg", 1988, "My Neighbor Totoro", "https://www.youtube.com/watch?v=92a7Hj0ijLs" },
+                    { 4, "Hayao Miyazaki", 1, "Anime", null, 2002, "Mei and the Kittenbus", "https://www.youtube.com/watch?v=92a7Hj0ijLs" },
+                    { 5, "Adam Wingard", 2, "Anime", null, 2017, "Death Note", null }
                 });
 
             migrationBuilder.InsertData(
