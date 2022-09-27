@@ -36,10 +36,6 @@ namespace MovieCharactersEFCodeFirst.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FranchiseReadDTO>>> GetFranchises()
         {
-            // return await _context.Movies
-            //     .Include(m => m.Characters)
-                // .ToListAsync();
-            
             return _mapper.Map<List<FranchiseReadDTO>>(
                 await _context.Franchises
                     .Include(f => f.Movies)
@@ -58,8 +54,9 @@ namespace MovieCharactersEFCodeFirst.Controllers
                 return NotFound();
             }
 
-            var franchise = await _context.Franchises.FindAsync(id);
-
+            var franchise = await _context.Franchises.Include(f => f.Movies)
+                .FirstOrDefaultAsync(f => f.Id == id);
+            
             if (franchise == null)
             {
                 return NotFound();
