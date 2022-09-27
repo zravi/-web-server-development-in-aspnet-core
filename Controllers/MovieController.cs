@@ -31,6 +31,7 @@ namespace MovieCharactersEFCodeFirst.Controllers
             _mapper = mapper;
         }
 
+        #region Generic CRUD
         // GET: api/Movies
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MovieReadDTO>>> GetMovies()
@@ -130,5 +131,15 @@ namespace MovieCharactersEFCodeFirst.Controllers
         {
             return (_context.Movies?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+        #endregion
+        
+        #region Update movie related information
+        //
+        // [HttpPut("{id}/characters")]
+        // public async Task<IActionResult> UpdateMovieCharacters(int id, List<int> characters)
+        // {
+        //     // if(!_movies)
+        // }
+        #endregion
     }
 }
