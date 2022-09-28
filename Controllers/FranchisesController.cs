@@ -3,8 +3,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieCharactersEFCodeFirst.Data;
+using MovieCharactersEFCodeFirst.Domain;
 using MovieCharactersEFCodeFirst.DTO.Franchise;
-using MovieCharactersEFCodeFirst.Models.Domain;
 
 namespace MovieCharactersEFCodeFirst.Controllers
 {

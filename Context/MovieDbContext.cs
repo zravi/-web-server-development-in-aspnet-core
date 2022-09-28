@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
-using MovieCharactersEFCodeFirst.Models.Domain;
+using MovieCharactersEFCodeFirst.Domain;
 
 namespace MovieCharactersEFCodeFirst.Data
 {

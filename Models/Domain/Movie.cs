@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MovieCharactersEFCodeFirst.Models.Domain
+namespace MovieCharactersEFCodeFirst.Domain
 {
     [Table("Movie")]
     public class Movie

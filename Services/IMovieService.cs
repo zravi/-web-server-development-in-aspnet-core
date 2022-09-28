@@ -1,4 +1,4 @@
-﻿using MovieCharactersEFCodeFirst.Models.Domain;
+﻿using MovieCharactersEFCodeFirst.Domain;
 
 namespace MovieCharactersEFCodeFirst.Services
 {

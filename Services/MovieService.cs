@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieCharactersEFCodeFirst.Data;
-using MovieCharactersEFCodeFirst.Models.Domain;
+using MovieCharactersEFCodeFirst.Domain;
 
 namespace MovieCharactersEFCodeFirst.Services
 {

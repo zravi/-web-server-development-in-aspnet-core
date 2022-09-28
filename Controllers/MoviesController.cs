@@ -1,8 +1,8 @@
 using System.Net.Mime;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using MovieCharactersEFCodeFirst.Domain;
 using MovieCharactersEFCodeFirst.DTO.Movie;
-using MovieCharactersEFCodeFirst.Models.Domain;
 using MovieCharactersEFCodeFirst.Services;
 
 namespace MovieCharactersEFCodeFirst.Controllers
