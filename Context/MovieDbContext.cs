@@ -1,11 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Protocols;
-using MovieCharactersEFCodeFirst.Models;
-using System.Configuration;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using ConfigurationManager = System.Configuration.ConfigurationManager;
 using System.Diagnostics.CodeAnalysis;
-using Microsoft.Extensions.Configuration;
 using MovieCharactersEFCodeFirst.Models.Domain;
 
 namespace MovieCharactersEFCodeFirst.Data

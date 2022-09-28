@@ -1,13 +1,20 @@
 ﻿1. Requirements:
-   * Visual Studio with built-in NuGet Package Manager Console
+   - Visual Studio with built-in NuGet Package Manager Console
    OR
-   * Other IDE with .NET CLI and EF Core Tools installed
-2. Install following NuGet packages:
-   * Microsoft.EntityFrameworkCore.SqlServer
-   * Microsoft.EntityFrameworkCore.Tools
+   - Other IDE with .NET CLI and EF Core Tools installed
+2. Install required packages through NuGet (see below)
 3. Create DB Context (MovieManagerDbContext.cs)
 4. Create Models (MovieCharacter.cs etc)
 5. Connection string (MovieManagerDbContext.cs -> OnConfiguring)
+    * Open appsettings.json and insert the following lines:
+      "AllowedHosts": "*",
+      "ConnectionStrings": {
+      "DefaultConnection": "Data Source = .\\SQLEXPRESS; Initial Catalog=MovieDB; Integrated Security = true; Encrypt = false;"
+      }
+    * In OnConfiguring method, include the following lines:
+      optionsBuilder.UseSqlServer(
+      configuration.GetConnectionString("DefaultConnection")
+      );
 6. Add migration: 
    * NuGet Package Manager Console -> "add-migration InitialDB"
    OR
@@ -18,8 +25,16 @@
    * NuGet Package Manager Console -> "update-database"
      OR
    * Dotnet CLI -> "dotnet ef database update"
-9. ConnectionString handling instead of hardcoding:
-   * Create App.Config to store ConnectionString (https://learn.microsoft.com/en-us/ef/ef6/fundamentals/configuring/connection-strings)
-   * Install System.Configuration.ConfigurationManager NuGet Package
-   * Usage : "string connectionString = ConfigurationManager.ConnectionStrings["YourConnectionStringName"].ConnectionString;" 
-   (https://learn.microsoft.com/en-us/dotnet/framework/data/adonet/connection-strings-and-configuration-files)
+
+Required packages:
+- Microsoft.EntityFrameworkCore
+- Microsoft.EntityFrameworkCore.Design
+- Microsoft.EntityFrameworkCore.SqlServer
+- Microsoft.OpenApi
+- AutoMapper.Extensions.Microsoft.DependencyInjection
+- Swashbuckle.AspNetCore
+
+Required tools:
+- NuGet Package Manager Console
+OR
+- DotNet CLI + EF Core Tools
