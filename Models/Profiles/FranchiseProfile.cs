@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using MovieCharactersEFCodeFirst.Domain;
 using MovieCharactersEFCodeFirst.DTO.Franchise;
 
@@ -10,7 +10,7 @@ namespace MovieCharactersEFCodeFirst.Profiles
         {
             CreateMap<Franchise, FranchiseReadDTO>()
                 .ForMember(fdto => fdto.Movies, opt => opt
-                    .MapFrom(f => f.Movies.Select(m => m.Id).ToList()))
+                    .MapFrom(f => f.Movies.Select(m => m.Title).ToList()))
                 .ReverseMap();
             CreateMap<FranchiseCreateDTO, Franchise>()
                 .ReverseMap();

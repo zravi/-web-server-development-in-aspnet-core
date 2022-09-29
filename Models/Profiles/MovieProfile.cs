@@ -10,7 +10,7 @@ namespace MovieCharactersEFCodeFirst.Profiles
         {
             CreateMap<Movie, MovieReadDTO>()
                 .ForMember(mdto => mdto.Characters, opt => opt
-                    .MapFrom(m => m.Characters.Select(c=> c.Id).ToList()))
+                    .MapFrom(m => m.Characters.Select(c=>  c.FullName).ToList()))
                 .ReverseMap();
             CreateMap<MovieCreateDTO, Movie>();
             CreateMap<MovieEditDTO, Movie>();
