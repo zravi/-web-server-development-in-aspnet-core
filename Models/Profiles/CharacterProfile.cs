@@ -10,9 +10,6 @@ namespace MovieCharactersEFCodeFirst.Profiles
         {
             // Character -> CharacterReadDTO
             CreateMap<Character, CharacterReadDTO>()
-                // Turn related movies to int list
-                // .ForMember(cdto => cdto.Movies, opt => opt
-                //     .MapFrom(c => c.Movies.Select(c => c.Id).ToList()))
                 .ReverseMap();
             // Character -> CharacterCreateDTO
             CreateMap<CharacterCreateDTO, Character>();

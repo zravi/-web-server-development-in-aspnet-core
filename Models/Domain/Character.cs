@@ -23,6 +23,5 @@ namespace MovieCharactersEFCodeFirst.Domain
         
         // Relationships
         public ICollection<Movie>? Movies { get; set; }
-        public ICollection<CharacterMovies>? CharacterMovies { get; set; }
     }
 }

@@ -29,6 +29,5 @@ namespace MovieCharactersEFCodeFirst.Domain
         public ICollection<Character>? Characters { get; set; }
         public int? FranchiseId { get; set; }
         public Franchise? Franchise { get; set; }
-        public ICollection<CharacterMovies>? CharacterMovies { get; set; }
     }
 }

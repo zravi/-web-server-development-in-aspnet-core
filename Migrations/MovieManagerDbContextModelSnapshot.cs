@@ -21,7 +21,64 @@ namespace MovieCharactersEFCodeFirst.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-            
+
+            modelBuilder.Entity("CharacterMovie", b =>
+                {
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CharacterId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MovieId", "CharacterId");
+
+                    b.HasIndex("CharacterId");
+
+                    b.ToTable("CharacterMovie");
+
+                    b.HasData(
+                        new
+                        {
+                            MovieId = 1,
+                            CharacterId = 1
+                        },
+                        new
+                        {
+                            MovieId = 1,
+                            CharacterId = 2
+                        },
+                        new
+                        {
+                            MovieId = 2,
+                            CharacterId = 3
+                        },
+                        new
+                        {
+                            MovieId = 2,
+                            CharacterId = 4
+                        },
+                        new
+                        {
+                            MovieId = 2,
+                            CharacterId = 5
+                        },
+                        new
+                        {
+                            MovieId = 3,
+                            CharacterId = 6
+                        },
+                        new
+                        {
+                            MovieId = 3,
+                            CharacterId = 7
+                        },
+                        new
+                        {
+                            MovieId = 4,
+                            CharacterId = 7
+                        });
+                });
+
             modelBuilder.Entity("MovieCharactersEFCodeFirst.Domain.Character", b =>
                 {
                     b.Property<int>("Id")
@@ -106,58 +163,6 @@ namespace MovieCharactersEFCodeFirst.Migrations
                             FullName = "Totoro",
                             Gender = "Male",
                             Picture = "https://static.wikia.nocookie.net/studio-ghibli/images/d/df/Totoro_in_the_rain.png/revision/latest/scale-to-width-down/350?cb=20200831205004"
-                        });
-                });
-
-            modelBuilder.Entity("MovieCharactersEFCodeFirst.Domain.CharacterMovies", b =>
-                {
-                    b.Property<int>("CharacterId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CharacterId", "MovieId");
-
-                    b.HasIndex("MovieId");
-
-                    b.ToTable("CharacterMovies");
-
-                    b.HasData(
-                        new
-                        {
-                            CharacterId = 2,
-                            MovieId = 1
-                        },
-                        new
-                        {
-                            CharacterId = 3,
-                            MovieId = 2
-                        },
-                        new
-                        {
-                            CharacterId = 4,
-                            MovieId = 2
-                        },
-                        new
-                        {
-                            CharacterId = 5,
-                            MovieId = 2
-                        },
-                        new
-                        {
-                            CharacterId = 6,
-                            MovieId = 3
-                        },
-                        new
-                        {
-                            CharacterId = 7,
-                            MovieId = 3
-                        },
-                        new
-                        {
-                            CharacterId = 7,
-                            MovieId = 4
                         });
                 });
 
@@ -307,23 +312,19 @@ namespace MovieCharactersEFCodeFirst.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MovieCharactersEFCodeFirst.Domain.CharacterMovies", b =>
+            modelBuilder.Entity("CharacterMovie", b =>
                 {
-                    b.HasOne("MovieCharactersEFCodeFirst.Domain.Character", "Character")
-                        .WithMany("CharacterMovies")
+                    b.HasOne("MovieCharactersEFCodeFirst.Domain.Character", null)
+                        .WithMany()
                         .HasForeignKey("CharacterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MovieCharactersEFCodeFirst.Domain.Movie", "Movie")
-                        .WithMany("CharacterMovies")
+                    b.HasOne("MovieCharactersEFCodeFirst.Domain.Movie", null)
+                        .WithMany()
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Character");
-
-                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("MovieCharactersEFCodeFirst.Domain.Movie", b =>
@@ -335,19 +336,9 @@ namespace MovieCharactersEFCodeFirst.Migrations
                     b.Navigation("Franchise");
                 });
 
-            modelBuilder.Entity("MovieCharactersEFCodeFirst.Domain.Character", b =>
-                {
-                    b.Navigation("CharacterMovies");
-                });
-
             modelBuilder.Entity("MovieCharactersEFCodeFirst.Domain.Franchise", b =>
                 {
                     b.Navigation("Movies");
-                });
-
-            modelBuilder.Entity("MovieCharactersEFCodeFirst.Domain.Movie", b =>
-                {
-                    b.Navigation("CharacterMovies");
                 });
 #pragma warning restore 612, 618
         }

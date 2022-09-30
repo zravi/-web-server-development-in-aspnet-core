@@ -68,7 +68,7 @@ namespace MovieCharactersEFCodeFirst.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CharacterMovies",
+                name: "CharacterMovie",
                 columns: table => new
                 {
                     MovieId = table.Column<int>(type: "int", nullable: false),
@@ -76,15 +76,15 @@ namespace MovieCharactersEFCodeFirst.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CharacterMovies", x => new { x.CharacterId, x.MovieId });
+                    table.PrimaryKey("PK_CharacterMovie", x => new { x.MovieId, x.CharacterId });
                     table.ForeignKey(
-                        name: "FK_CharacterMovies_Character_CharacterId",
+                        name: "FK_CharacterMovie_Character_CharacterId",
                         column: x => x.CharacterId,
                         principalTable: "Character",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CharacterMovies_Movie_MovieId",
+                        name: "FK_CharacterMovie_Movie_MovieId",
                         column: x => x.MovieId,
                         principalTable: "Movie",
                         principalColumn: "Id",
@@ -129,10 +129,11 @@ namespace MovieCharactersEFCodeFirst.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "CharacterMovies",
+                table: "CharacterMovie",
                 columns: new[] { "CharacterId", "MovieId" },
                 values: new object[,]
                 {
+                    { 1, 1 },
                     { 2, 1 },
                     { 3, 2 },
                     { 4, 2 },
@@ -143,9 +144,9 @@ namespace MovieCharactersEFCodeFirst.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CharacterMovies_MovieId",
-                table: "CharacterMovies",
-                column: "MovieId");
+                name: "IX_CharacterMovie_CharacterId",
+                table: "CharacterMovie",
+                column: "CharacterId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Movie_FranchiseId",
@@ -158,9 +159,6 @@ namespace MovieCharactersEFCodeFirst.Migrations
         {
             migrationBuilder.DropTable(
                 name: "CharacterMovie");
-
-            migrationBuilder.DropTable(
-                name: "CharacterMovies");
 
             migrationBuilder.DropTable(
                 name: "Character");
