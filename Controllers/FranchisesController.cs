@@ -1,4 +1,5 @@
 using System.Net.Mime;
+using System.Text.RegularExpressions;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -171,6 +172,44 @@ namespace MovieCharactersEFCodeFirst.Controllers
             }
 
             return NoContent();
+        }
+        
+        /// <summary>
+        /// Get a list of characters in franchises.
+        /// </summary>
+        [HttpGet]
+        [Route("franchisecharacters")]
+        public async Task<ActionResult<IEnumerable<FranchiseCharactersReadDTO>>> GetCharactersInFranchises()
+        {
+            // return ... .ToList()
+            //
+            // select f.Name as Franchise, c.FullName as Character from Franchise f 
+            //     left join Movie m on f.Id = m.FranchiseId
+            // left join CharacterMovie cm on cm.MovieId = m.Id
+            // left join Character c on cm.CharacterId = c.Id
+            // where m.FranchiseId IS NOT NULL
+            // and c.Id IS NOT NULL
+            // group by f.Name, c.FullName
+            
+            var franchiseList =
+                (from f in _context.Franchises
+                    join m in _context.Movies on f.Id equals m.FranchiseId
+                join cm in _context.CharacterMovies on m.Id equals cm.MovieId
+                join c in _context.Characters on cm.CharacterId equals c.Id
+                select new FranchiseCharactersReadDTO()
+                {
+                    FranchiseId = f.Id,
+                    FranchiseName = f.Name,
+                    CharacterName = c.FullName
+                }).ToList();
+            
+            return franchiseList;
+
+            // return _mapper.Map<List<FranchiseReadDTO>>(
+            //     await _context.Franchises
+            //         .Include(f => f.Movies)
+            //         .ToListAsync()
+            // );
         }
         
 

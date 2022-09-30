@@ -9,6 +9,7 @@ namespace MovieCharactersEFCodeFirst.Data
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Character> Characters { get; set; }
         public DbSet<Franchise> Franchises { get; set; }
+        public DbSet<CharacterMovies> CharacterMovies { get; set; }
 
         public MovieManagerDbContext([NotNullAttribute] DbContextOptions options) : base(options)
         {
@@ -182,29 +183,43 @@ namespace MovieCharactersEFCodeFirst.Data
                 Description = "Toei Animation Co., Ltd. is a Japanese animation studio controlled primarily by its namesake Toei Company. It has created a number of television series and movies and has adapted Japanese comics as animated series, many of which are popular around the world."
             });
             #endregion
+
+            modelBuilder.Entity<CharacterMovies>().HasKey(cm => new { cm.CharacterId, cm.MovieId });
+
+            modelBuilder.Entity<CharacterMovies>().HasData(new List<CharacterMovies>()
+            {
+                new CharacterMovies() { MovieId = 1, CharacterId = 2 },
+                new CharacterMovies() { MovieId = 2, CharacterId = 3 },
+                new CharacterMovies() { MovieId = 2, CharacterId = 4 },
+                new CharacterMovies() { MovieId = 2, CharacterId = 5 },
+                new CharacterMovies() { MovieId = 3, CharacterId = 6 },
+                new CharacterMovies() { MovieId = 3, CharacterId = 7 },
+                new CharacterMovies() { MovieId = 4, CharacterId = 7 }
+            });
             
-            // Seed m2m character-movie. Need to define m2m and access linking table
-            modelBuilder.Entity<Movie>()
-                .HasMany(p => p.Characters)
-                .WithMany(m => m.Movies)
-                .UsingEntity<Dictionary<string, object>>(
-                    "CharacterMovie",
-                    r => r.HasOne<Character>().WithMany().HasForeignKey("CharacterId"),
-                    l => l.HasOne<Movie>().WithMany().HasForeignKey("MovieId"),
-                    je =>
-                    {
-                        je.HasKey("MovieId", "CharacterId");
-                        je.HasData(
-                            new { MovieId = 1, CharacterId = 1 },
-                            new { MovieId = 1, CharacterId = 2 },
-                            new { MovieId = 2, CharacterId = 3 },
-                            new { MovieId = 2, CharacterId = 4 },
-                            new { MovieId = 2, CharacterId = 5 },
-                            new { MovieId = 3, CharacterId = 6 },
-                            new { MovieId = 3, CharacterId = 7 },
-                            new { MovieId = 4, CharacterId = 7 }
-                        );
-                    });
+            
+            // // Seed m2m character-movie. Need to define m2m and access linking table
+            // modelBuilder.Entity<Movie>()
+            //     .HasMany(p => p.Characters)
+            //     .WithMany(m => m.Movies)
+            //     .UsingEntity<Dictionary<string, object>>(
+            //         "CharacterMovie",
+            //         r => r.HasOne<Character>().WithMany().HasForeignKey("CharacterId"),
+            //         l => l.HasOne<Movie>().WithMany().HasForeignKey("MovieId"),
+            //         je =>
+            //         {
+            //             je.HasKey("MovieId", "CharacterId");
+            //             je.HasData(
+            //                 new { MovieId = 1, CharacterId = 1 },
+            //                 new { MovieId = 1, CharacterId = 2 },
+            //                 new { MovieId = 2, CharacterId = 3 },
+            //                 new { MovieId = 2, CharacterId = 4 },
+            //                 new { MovieId = 2, CharacterId = 5 },
+            //                 new { MovieId = 3, CharacterId = 6 },
+            //                 new { MovieId = 3, CharacterId = 7 },
+            //                 new { MovieId = 4, CharacterId = 7 }
+            //             );
+            //         });
         }
     }
 }

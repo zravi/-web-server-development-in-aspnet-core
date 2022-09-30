@@ -6,10 +6,10 @@ namespace MovieCharactersEFCodeFirst.Domain
     [Table("Character")]
     public class Character
     {
-        public Character()
-        {
-            this.Movies = new HashSet<Movie>();
-        }
+        // public Character()
+        // {
+        //     this.Movies = new HashSet<Movie>();
+        // }
         public int Id { get; set; }
         [MaxLength(60)]
         public string FullName { get; set; }
@@ -23,5 +23,6 @@ namespace MovieCharactersEFCodeFirst.Domain
         
         // Relationships
         public ICollection<Movie>? Movies { get; set; }
+        public ICollection<CharacterMovies>? CharacterMovies { get; set; }
     }
 }

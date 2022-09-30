@@ -12,7 +12,7 @@ using MovieCharactersEFCodeFirst.Data;
 namespace MovieCharactersEFCodeFirst.Migrations
 {
     [DbContext(typeof(MovieManagerDbContext))]
-    [Migration("20220927141004_AddInitialDB")]
+    [Migration("20220930081704_AddInitialDB")]
     partial class AddInitialDB
     {
         /// <inheritdoc />
@@ -25,64 +25,7 @@ namespace MovieCharactersEFCodeFirst.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CharacterMovie", b =>
-                {
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CharacterId")
-                        .HasColumnType("int");
-
-                    b.HasKey("MovieId", "CharacterId");
-
-                    b.HasIndex("CharacterId");
-
-                    b.ToTable("CharacterMovie");
-
-                    b.HasData(
-                        new
-                        {
-                            MovieId = 1,
-                            CharacterId = 1
-                        },
-                        new
-                        {
-                            MovieId = 1,
-                            CharacterId = 2
-                        },
-                        new
-                        {
-                            MovieId = 2,
-                            CharacterId = 3
-                        },
-                        new
-                        {
-                            MovieId = 2,
-                            CharacterId = 4
-                        },
-                        new
-                        {
-                            MovieId = 2,
-                            CharacterId = 5
-                        },
-                        new
-                        {
-                            MovieId = 3,
-                            CharacterId = 6
-                        },
-                        new
-                        {
-                            MovieId = 3,
-                            CharacterId = 7
-                        },
-                        new
-                        {
-                            MovieId = 4,
-                            CharacterId = 7
-                        });
-                });
-
-            modelBuilder.Entity("MovieCharactersEFCodeFirst.Models.Domain.Character", b =>
+            modelBuilder.Entity("MovieCharactersEFCodeFirst.Domain.Character", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -169,7 +112,59 @@ namespace MovieCharactersEFCodeFirst.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MovieCharactersEFCodeFirst.Models.Domain.Franchise", b =>
+            modelBuilder.Entity("MovieCharactersEFCodeFirst.Domain.CharacterMovies", b =>
+                {
+                    b.Property<int>("CharacterId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CharacterId", "MovieId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("CharacterMovies");
+
+                    b.HasData(
+                        new
+                        {
+                            CharacterId = 2,
+                            MovieId = 1
+                        },
+                        new
+                        {
+                            CharacterId = 3,
+                            MovieId = 2
+                        },
+                        new
+                        {
+                            CharacterId = 4,
+                            MovieId = 2
+                        },
+                        new
+                        {
+                            CharacterId = 5,
+                            MovieId = 2
+                        },
+                        new
+                        {
+                            CharacterId = 6,
+                            MovieId = 3
+                        },
+                        new
+                        {
+                            CharacterId = 7,
+                            MovieId = 3
+                        },
+                        new
+                        {
+                            CharacterId = 7,
+                            MovieId = 4
+                        });
+                });
+
+            modelBuilder.Entity("MovieCharactersEFCodeFirst.Domain.Franchise", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -211,7 +206,7 @@ namespace MovieCharactersEFCodeFirst.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MovieCharactersEFCodeFirst.Models.Domain.Movie", b =>
+            modelBuilder.Entity("MovieCharactersEFCodeFirst.Domain.Movie", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -314,34 +309,48 @@ namespace MovieCharactersEFCodeFirst.Migrations
                             Title = "Ghost in the Shell"
                         });
                 });
-
-            modelBuilder.Entity("CharacterMovie", b =>
+            
+            modelBuilder.Entity("MovieCharactersEFCodeFirst.Domain.CharacterMovies", b =>
                 {
-                    b.HasOne("MovieCharactersEFCodeFirst.Models.Domain.Character", null)
-                        .WithMany()
+                    b.HasOne("MovieCharactersEFCodeFirst.Domain.Character", "Character")
+                        .WithMany("CharacterMovies")
                         .HasForeignKey("CharacterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MovieCharactersEFCodeFirst.Models.Domain.Movie", null)
-                        .WithMany()
+                    b.HasOne("MovieCharactersEFCodeFirst.Domain.Movie", "Movie")
+                        .WithMany("CharacterMovies")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Character");
+
+                    b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("MovieCharactersEFCodeFirst.Models.Domain.Movie", b =>
+            modelBuilder.Entity("MovieCharactersEFCodeFirst.Domain.Movie", b =>
                 {
-                    b.HasOne("MovieCharactersEFCodeFirst.Models.Domain.Franchise", "Franchise")
+                    b.HasOne("MovieCharactersEFCodeFirst.Domain.Franchise", "Franchise")
                         .WithMany("Movies")
                         .HasForeignKey("FranchiseId");
 
                     b.Navigation("Franchise");
                 });
 
-            modelBuilder.Entity("MovieCharactersEFCodeFirst.Models.Domain.Franchise", b =>
+            modelBuilder.Entity("MovieCharactersEFCodeFirst.Domain.Character", b =>
+                {
+                    b.Navigation("CharacterMovies");
+                });
+
+            modelBuilder.Entity("MovieCharactersEFCodeFirst.Domain.Franchise", b =>
                 {
                     b.Navigation("Movies");
+                });
+
+            modelBuilder.Entity("MovieCharactersEFCodeFirst.Domain.Movie", b =>
+                {
+                    b.Navigation("CharacterMovies");
                 });
 #pragma warning restore 612, 618
         }
